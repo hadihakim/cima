@@ -1,0 +1,75 @@
+﻿@model IEnumerable<cima.Models.Movie>
+
+@{
+    ViewBag.Title = "Movies List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies List</h2>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieGenre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.releaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.movieName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.movieYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.movieSeason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.starring)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.creator)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    if (item.userName == HttpContext.Current.User.Identity.Name)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieGenre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.releaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.movieName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.movieYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.movieSeason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.starring)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.creator)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.movieid }) |
+            @Html.ActionLink("Details", "Details", new { id = item.movieid }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.movieid })
+        </td>
+    </tr>
+    }
+}
+
+</table>
+

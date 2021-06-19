@@ -1,0 +1,75 @@
+﻿@model cima.Models.Movie
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MovieGenre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovieGenre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.releaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.releaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.movieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movieName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.movieYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movieYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.movieSeason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movieSeason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.starring)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.starring)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creator)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.movieid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

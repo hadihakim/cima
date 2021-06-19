@@ -1,0 +1,67 @@
+﻿@model cima.Models.Showtime
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Showtime</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.movieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.movieName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time4)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.showtimeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

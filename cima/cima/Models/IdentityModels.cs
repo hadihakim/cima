@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,6 +10,9 @@ namespace cima.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        [Required]
+        public usertype Usertype { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -16,10 +20,28 @@ namespace cima.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public enum usertype
+        {
+            Cinema,
+            Normal
+        }
+    
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Movie> Movies { get; set; }
+
+        public DbSet<Showtime> Showtimes { get; set; }
+
+        public DbSet<testing> testings { get; set; }
+
+       
+  
+
+        
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

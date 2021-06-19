@@ -65,6 +65,11 @@ namespace cima.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Account type")]
+        public usertype Usertype { get; set; }
+
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -79,7 +84,15 @@ namespace cima.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public enum usertype
+        {
+            Cinema,
+            Normal
+
+        }
     }
+   
 
     public class ResetPasswordViewModel
     {

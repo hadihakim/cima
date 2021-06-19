@@ -1,0 +1,81 @@
+﻿@model cima.Models.Movie
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MovieGenre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovieGenre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.releaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.releaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.movieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movieName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.movieYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movieYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.movieSeason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movieSeason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.starring)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.starring)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creator)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
