@@ -161,11 +161,15 @@ namespace cima.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    
-                    /*var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    if (model.Usertype == 0) {
+                        /*var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
                     var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    await roleManager.CreateAsync(new IdentityRole("CinemaAccount"));
-                    await UserManager.AddToRoleAsync(user.Id, "CinemaAccount");*/
+                    await roleManager.CreateAsync(new IdentityRole("ClientAccount"));*/
+                    await UserManager.AddToRoleAsync(user.Id, "CinemaAccount");
+                    }
+
+
+
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

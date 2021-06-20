@@ -21,12 +21,12 @@ namespace cima.Controllers
             var showtimes = db.Showtimes.Include(s => s.Movie);
 
 
-            if (User.IsInRole("CinemaAccount"))
+            if (User.IsInRole(RoleName.CinemaAccount))
             {
                 var showtime = db.Showtimes.Include(s => s.Movie).Where(x => x.Movie.userName == User.Identity.Name);
                 return View("List", await showtime.ToListAsync());
             }
-            else if (User.IsInRole("applicationAdmin"))
+            else if (User.IsInRole(RoleName.applicationAdmin))
             {
                 
                 return View("List", await showtimes.ToListAsync());
@@ -40,6 +40,7 @@ namespace cima.Controllers
         }
 
         // GET: Showtimes/Details/5
+        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,6 +56,7 @@ namespace cima.Controllers
         }
 
         // GET: Showtimes/Create
+        [Authorize(Roles = RoleName.applicationAdmin+","+RoleName.CinemaAccount)]
         public ActionResult Create()
         {
             
@@ -68,6 +70,7 @@ namespace cima.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
         public async Task<ActionResult> Create([Bind(Include = "showtimeId,movieId,day,time1,time2,time3,time4")] Showtime showtime)
         {
             if (ModelState.IsValid)
@@ -85,6 +88,7 @@ namespace cima.Controllers
         }
 
         // GET: Showtimes/Edit/5
+        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -105,6 +109,7 @@ namespace cima.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
         public async Task<ActionResult> Edit([Bind(Include = "showtimeId,movieId,day,time1,time2,time3,time4")] Showtime showtime)
         {
             if (ModelState.IsValid)
@@ -118,6 +123,7 @@ namespace cima.Controllers
         }
 
         // GET: Showtimes/Delete/5
+        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +141,7 @@ namespace cima.Controllers
         // POST: Showtimes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Showtime showtime = await db.Showtimes.FindAsync(id);
