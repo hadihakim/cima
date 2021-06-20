@@ -47,6 +47,7 @@ namespace cima.Models
 
         
           [StringLength(255)]
+          [Display(Name = "Added By")]
         public string userName{ get; set; }
          
 
