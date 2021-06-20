@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.userName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.MovieGenre)
         </th>
         <th>
@@ -36,33 +39,35 @@
     </tr>
 
 @foreach (var item in Model) {
-    if (item.userName == HttpContext.Current.User.Identity.Name)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MovieGenre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.releaseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.movieName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.movieYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.movieSeason)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.starring)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.creator)
-        </td>
-        
-    </tr>
-    }
+    
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.userName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MovieGenre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.releaseDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.movieName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.movieYear)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.movieSeason)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.starring)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.creator)
+    </td>
+
+</tr>
+    
 }
 
 </table>

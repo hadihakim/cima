@@ -359,8 +359,9 @@
     <Content Include="Views\Showtimes\Delete.cshtml" />
     <Content Include="Views\Showtimes\Details.cshtml" />
     <Content Include="Views\Showtimes\Edit.cshtml" />
-    <Content Include="Views\Showtimes\Index.cshtml" />
+    <Content Include="Views\Showtimes\List.cshtml" />
     <Content Include="Views\Movies\ReadOnlyList.cshtml" />
+    <Content Include="Views\Showtimes\ReadOnlyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,8 +24,18 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Upcoming Movies", "Index", "Movies")</li>
-                    <li>@Html.ActionLink("Current Movies", "Index", "Showtimes")</li>
+                    @if (User.IsInRole("applicationAdmin") || User.IsInRole("CinemaAccount"))
+                    {
+                        <li>@Html.ActionLink("Upcoming Movies", "Index", "Movies")</li>
+                        <li>@Html.ActionLink("Current Movies", "Index", "Showtimes")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("All Movies", "Index", "Movies")</li>
+                        <li>@Html.ActionLink("Movies Showtime", "Index", "Showtimes")</li>
+                    }
+
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

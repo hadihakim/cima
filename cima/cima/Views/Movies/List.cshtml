@@ -13,6 +13,13 @@
 </p>
 <table class="table">
     <tr>
+        @if (User.IsInRole("applicationAdmin"))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.userName)
+            </th>
+
+        }
         <th>
             @Html.DisplayNameFor(model => model.MovieGenre)
         </th>
@@ -38,37 +45,43 @@
     </tr>
 
 @foreach (var item in Model) {
-    if (item.userName == HttpContext.Current.User.Identity.Name)
+    
+<tr>
+    @if (User.IsInRole("applicationAdmin"))
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MovieGenre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.releaseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.movieName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.movieYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.movieSeason)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.starring)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.creator)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.movieid }) |
-            @Html.ActionLink("Details", "Details", new { id = item.movieid }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.movieid })
-        </td>
-    </tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.userName)
+    </td>
+
     }
+    <td>
+        @Html.DisplayFor(modelItem => item.MovieGenre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.releaseDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.movieName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.movieYear)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.movieSeason)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.starring)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.creator)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.movieid }) |
+        @Html.ActionLink("Details", "Details", new { id = item.movieid }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.movieid })
+    </td>
+</tr>
+    
 }
 
 </table>

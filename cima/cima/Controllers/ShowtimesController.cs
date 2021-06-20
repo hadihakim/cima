@@ -19,7 +19,24 @@ namespace cima.Controllers
         public async Task<ActionResult> Index()
         {
             var showtimes = db.Showtimes.Include(s => s.Movie);
-            return View(await showtimes.ToListAsync());
+
+
+            if (User.IsInRole("CinemaAccount"))
+            {
+                var showtime = db.Showtimes.Include(s => s.Movie).Where(x => x.Movie.userName == User.Identity.Name);
+                return View("List", await showtime.ToListAsync());
+            }
+            else if (User.IsInRole("applicationAdmin"))
+            {
+                
+                return View("List", await showtimes.ToListAsync());
+
+            }
+            else
+            {
+                return View("ReadOnlyList", await showtimes.ToListAsync());
+            }
+
         }
 
         // GET: Showtimes/Details/5
