@@ -34,6 +34,8 @@
     </tr>
 
 @foreach (var item in Model) {
+    if (item.Movie.userName == HttpContext.Current.User.Identity.Name)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Movie.movieName)
@@ -54,11 +56,12 @@
             @Html.DisplayFor(modelItem => item.time4)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.showtimeId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.showtimeId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.showtimeId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.showtimeId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.showtimeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.showtimeId })
         </td>
     </tr>
+    }
 }
 
 </table>

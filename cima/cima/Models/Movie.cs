@@ -33,8 +33,7 @@ namespace cima.Models
         [Display(Name = "Release Date")]
         public DateTime releaseDate { get; set; }
 
-        /* [ForeignKey("UserId")]
-         public virtual ApplicationUser ApplicationUser { get; set; }*/
+        
 
         [Display(Name = "Movie Name")]
         [Required]
@@ -45,8 +44,17 @@ namespace cima.Models
         [Required]
         public int movieYear { get; set; }
 
-        [StringLength(255)]
+
+        
+          [StringLength(255)]
         public string userName{ get; set; }
+         
+
+        /*[ForeignKey("Movie")]
+        [Display(Name = "Movie Name")]
+        public int movieId { get; set; }*/
+
+        
 
         [Display(Name = "Movie Seanson")]
         public int movieSeason { get; set; }

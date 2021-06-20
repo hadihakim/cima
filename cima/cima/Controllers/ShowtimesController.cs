@@ -40,7 +40,9 @@ namespace cima.Controllers
         // GET: Showtimes/Create
         public ActionResult Create()
         {
-            ViewBag.movieId = new SelectList(db.Movies, "movieid", "movieName");
+            
+            ViewBag.movieId = new SelectList(db.Movies.Where(x => x.userName == User.Identity.Name), "movieid", "movieName");
+            
             return View();
         }
 

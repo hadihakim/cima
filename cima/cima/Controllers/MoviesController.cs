@@ -20,9 +20,18 @@ namespace cima.Controllers
         // GET: Movies
         public async Task<ActionResult> Index()
         {
-            
+            if (User.IsInRole("applicationAdmin"))
+            {
                 // User.Identity.GetUserId(); --> get the current user id
-                return View(await db.Movies.ToListAsync());
+                return View("List",await db.Movies.ToListAsync());
+
+            }
+            else
+            {
+                return View("ReadOnlyList", await db.Movies.ToListAsync());
+
+            }
+                
     
         }
 
