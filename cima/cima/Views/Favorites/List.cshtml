@@ -19,14 +19,18 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Movie.movieName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Movie.userName)
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.movieName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.userName)
+    </td>
+    <td>
+        @Html.ActionLink("unfavorite", "Unfavorites", new { id = item.Movie.movieid })
+    </td>
+    
+</tr>
 }
 
 </table>

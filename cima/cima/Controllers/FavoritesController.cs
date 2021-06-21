@@ -28,6 +28,29 @@ namespace cima.Controllers
 
         }
 
+
+        [Authorize]
+        public async Task<ActionResult> Unfavorites(int id)
+        {
+
+            try
+            {
+
+                Favorite fav = await db.Favorites.FindAsync(User.Identity.Name, id);
+                db.Favorites.Remove(fav);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("List");
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("List");
+            }
+
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
