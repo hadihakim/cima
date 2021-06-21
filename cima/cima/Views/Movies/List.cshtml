@@ -1,4 +1,4 @@
-﻿@model IEnumerable<cima.Models.Movie>
+﻿@model IEnumerable<cima.Model.Movie>
 
 @{
     ViewBag.Title = "Movies List";
@@ -79,6 +79,7 @@
         @Html.ActionLink("Edit", "Edit", new { id = item.movieid }) |
         @Html.ActionLink("Details", "Details", new { id = item.movieid }) |
         @Html.ActionLink("Delete", "Delete", new { id = item.movieid })
+        
     </td>
 </tr>
     

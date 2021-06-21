@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace cima.Models
+namespace cima.Model
 {
     public static class RoleName
     {

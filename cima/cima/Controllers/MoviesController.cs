@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using cima.Models;
+using cima.Model;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -18,12 +18,13 @@ namespace cima.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Movies
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> List()
         {
             if (User.IsInRole(RoleName.CinemaAccount))
             {
                 // User.Identity.GetUserId(); --> get the current user id
                 var movie = db.Movies.Where(x => x.userName == User.Identity.Name);
+                
                 return View("List",await movie.ToListAsync());
 
             }
@@ -48,6 +49,7 @@ namespace cima.Controllers
             Movie movie = await db.Movies.FindAsync(id);
             if (movie == null)
             {
+
                 return HttpNotFound();
             }
             return View(movie);
@@ -76,11 +78,50 @@ namespace cima.Controllers
                 movie.userName = currentUMUser; 
                 db.Movies.Add(movie);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
 
             return View(movie);
         }
+
+
+
+
+        /// <summary>
+        /// ///////////////////////////////////////////////////////////////////////////////
+        /// </summary>
+        /// <param></param>
+        /// <returns></returns>
+        [Authorize]
+        public async Task<ActionResult> Favorites(int id)
+
+            
+        {
+            
+                Favorite ffavorite = new Favorite();
+
+            
+
+                var currentUMUser = User.Identity.Name;
+                //var currentUser = db.Users.Find(currentUMUser.UserID);
+               ffavorite.userName = currentUMUser;
+               ffavorite.movieId = id;
+             //ffavorite.favoriteId = 1;
+
+
+            db.Favorites.Add(ffavorite);
+                await db.SaveChangesAsync();
+                return RedirectToAction("List");
+
+            /*Movie movie = await db.Movies.FindAsync(id);
+            db.Movies.Remove(movie);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");*/
+        }
+
+
+
+
 
         // GET: Movies/Edit/5
         [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
@@ -110,7 +151,7 @@ namespace cima.Controllers
             {
                 db.Entry(movie).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
             return View(movie);
         }
@@ -127,6 +168,7 @@ namespace cima.Controllers
             if (movie == null)
             {
                 return HttpNotFound();
+                
             }
             return View(movie);
         }
@@ -140,8 +182,31 @@ namespace cima.Controllers
             Movie movie = await db.Movies.FindAsync(id);
             db.Movies.Remove(movie);
             await db.SaveChangesAsync();
+            return RedirectToAction("List");
+        }
+
+
+
+
+
+
+        /*// POST: Movies/Delete/5
+        [HttpPost, ActionName("favorite")]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> favorite(int id)
+        {
+            Movie movie = await db.Movies.FindAsync(id);
+            db.Movies.Remove(movie);
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        */
+
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {

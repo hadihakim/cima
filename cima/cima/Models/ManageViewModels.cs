@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace cima.Models
+namespace cima.Model
 {
     public class IndexViewModel
     {

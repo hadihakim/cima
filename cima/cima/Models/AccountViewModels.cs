@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace cima.Models
+namespace cima.Model
 {
     public class ExternalLoginConfirmationViewModel
     {
