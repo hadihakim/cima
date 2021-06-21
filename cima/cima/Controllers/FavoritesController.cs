@@ -11,12 +11,14 @@ using System.Net;
 
 namespace cima.Controllers
 {
+    
     public class FavoritesController : Controller
     {
 
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Favorites
         // GET: Movies
+        
         public async Task<ActionResult> List()
         {
             var favorites = db.Favorites.Where(x => x.userName == User.Identity.Name);
