@@ -11,6 +11,7 @@ using cima.Model;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace cima.Controllers
 {
     public class MoviesController : Controller
@@ -20,19 +21,23 @@ namespace cima.Controllers
         // GET: Movies
         public async Task<ActionResult> List()
         {
+
             if (User.IsInRole(RoleName.CinemaAccount))
+
             {
                 // User.Identity.GetUserId(); --> get the current user id
                 var movie = db.Movies.Where(x => x.userName == User.Identity.Name);
-                
-                return View("List",await movie.ToListAsync());
+
+                return View("List", await movie.ToListAsync());
 
             }
-            else if(User.IsInRole(RoleName.applicationAdmin))
+            else if (User.IsInRole(RoleName.applicationAdmin))
             {
                 return View("List", await db.Movies.ToListAsync());
             }
             else
+               
+
                 return View("ReadOnlyList", await db.Movies.ToListAsync());
 
 
@@ -93,30 +98,33 @@ namespace cima.Controllers
         /// <param></param>
         /// <returns></returns>
         [Authorize]
-        public async Task<ActionResult> Favorites(int id)
-
-            
+        public async Task<ActionResult> Favorites(int id)  
         {
             
-                Favorite ffavorite = new Favorite();
+                
 
-            
+            try
+            {
+                Favorite ffavorite = new Favorite();
 
                 var currentUMUser = User.Identity.Name;
                 //var currentUser = db.Users.Find(currentUMUser.UserID);
-               ffavorite.userName = currentUMUser;
-               ffavorite.movieId = id;
-             //ffavorite.favoriteId = 1;
+                ffavorite.userName = currentUMUser;
+                ffavorite.movieId = id;
 
 
-            db.Favorites.Add(ffavorite);
+                db.Favorites.Add(ffavorite);
                 await db.SaveChangesAsync();
                 return RedirectToAction("List");
+            }
+            catch (Exception)
+            {
 
-            /*Movie movie = await db.Movies.FindAsync(id);
-            db.Movies.Remove(movie);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");*/
+                return RedirectToAction("List");
+            }
+
+
+
         }
 
 
@@ -184,25 +192,6 @@ namespace cima.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("List");
         }
-
-
-
-
-
-
-        /*// POST: Movies/Delete/5
-        [HttpPost, ActionName("favorite")]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<ActionResult> favorite(int id)
-        {
-            Movie movie = await db.Movies.FindAsync(id);
-            db.Movies.Remove(movie);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-        */
-
 
 
 

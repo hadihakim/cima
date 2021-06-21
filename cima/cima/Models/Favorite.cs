@@ -9,19 +9,21 @@ namespace cima.Model
 {
     public class Favorite
     {
-        [Key]
-        [Required]
-        public int favoriteId { get; set; }
+
 
 
         [StringLength(256)]
         [Display(Name = "Added By")]
         [Required]
+        [Key]
+        [Column(Order = 0)]
         public string userName { get; set; }
 
         [ForeignKey("Movie")]
         [Display(Name = "Movie Name")]
         [Required]
+        [Key]
+        [Column(Order = 1)]
         public int movieId { get; set; }
 
         public virtual Movie Movie { get; set; }
