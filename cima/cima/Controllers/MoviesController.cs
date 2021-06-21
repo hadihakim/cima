@@ -100,9 +100,6 @@ namespace cima.Controllers
         [Authorize]
         public async Task<ActionResult> Favorites(int id)  
         {
-            
-                
-
             try
             {
                 Favorite ffavorite = new Favorite();
@@ -123,9 +120,31 @@ namespace cima.Controllers
                 return RedirectToAction("List");
             }
 
+        }
 
+        [Authorize]
+        public async Task<ActionResult> Unfavorites(int id)
+        {
+
+            try
+            {
+
+                Favorite fav = await db.Favorites.FindAsync(User.Identity.Name, id);
+                db.Favorites.Remove(fav);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("List");
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("List");
+            }
 
         }
+
+
+
 
 
 
