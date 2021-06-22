@@ -27,7 +27,14 @@
         @Html.DisplayFor(modelItem => item.Movie.userName)
     </td>
     <td>
-        @Html.ActionLink("unfavorite", "Unfavorites", new { id = item.Movie.movieid })
+   
+        <a href="@Url.Action("Unfavorites", "Favorites", new { id = item.Movie.movieid }) " class="btn btn-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>Unfavorite</strong>
+            </span>
+        </a>
+
     </td>
     
 </tr>

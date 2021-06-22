@@ -66,7 +66,13 @@
     </td>
     <td>
 
-        @Html.ActionLink("favorite", "Favorites", new { id = item.movieid })
+        <a href="@Url.Action("Favorites", "Movies", new { id = item.movieid }) "class="btn btn-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>Favorite</strong>
+            </span>
+        </a>
+
     </td>
 
 </tr>
