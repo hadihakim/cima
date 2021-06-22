@@ -21,6 +21,9 @@ namespace cima.Controllers
         // GET: Movies
         public async Task<ActionResult> List()
         {
+            var favorite = db.Favorites.Where(x => x.userName == User.Identity.Name);
+
+            var movi = db.Movies.Where(x => x.movieid > 0);
 
             if (User.IsInRole(RoleName.CinemaAccount))
 
@@ -36,10 +39,12 @@ namespace cima.Controllers
                 return View("List", await db.Movies.ToListAsync());
             }
             else
-               
+                foreach (Favorite fav in favorite) {
+                    movi = movi.Where(x => x.movieid != fav.movieId);
 
-                return View("ReadOnlyList", await db.Movies.ToListAsync());
+                }
 
+            return View("ReadOnlyList", await movi.ToListAsync());
 
         }
 

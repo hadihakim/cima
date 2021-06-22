@@ -36,8 +36,9 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    
+@foreach (var item in Model)
+{
+
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.userName)
@@ -66,10 +67,6 @@
     <td>
 
         @Html.ActionLink("favorite", "Favorites", new { id = item.movieid })
-    </td>
-    <td>
-
-        @Html.ActionLink("unfavorite", "Unfavorites", new { id = item.movieid })
     </td>
 
 </tr>
