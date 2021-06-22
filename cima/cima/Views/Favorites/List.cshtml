@@ -21,7 +21,9 @@
 @foreach (var item in Model) {
 <tr>
     <td>
-        @Html.DisplayFor(modelItem => item.Movie.movieName)
+        <a href="@Url.Action("Movietime", "Showtimes", new { id = item.Movie.movieid })">
+            @Html.DisplayFor(modelItem => item.Movie.movieName)
+        </a>
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Movie.userName)

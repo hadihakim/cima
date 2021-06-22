@@ -39,6 +39,47 @@ namespace cima.Controllers
 
         }
 
+
+
+
+        public async Task<ActionResult> Movietime(int id)
+        {
+            var showtime = db.Showtimes.Include(s => s.Movie).Where(x => x.movieId == id);
+
+            return View("Movielist", await showtime.ToListAsync());
+
+
+            /*if (User.IsInRole(RoleName.CinemaAccount))
+            {
+                var showtime = db.Showtimes.Include(s => s.Movie).Where(x => x.Movie.userName == User.Identity.Name);
+                return View("List", await showtime.ToListAsync());
+            }
+            else if (User.IsInRole(RoleName.applicationAdmin))
+            {
+
+                return View("List", await showtimes.ToListAsync());
+
+            }
+            else
+            {
+                return View("ReadOnlyList", await showtimes.ToListAsync());
+            }*/
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // GET: Showtimes/Details/5
         [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
         public async Task<ActionResult> Details(int? id)
