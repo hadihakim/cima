@@ -18,7 +18,7 @@ namespace cima.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Favorites
         // GET: Movies
-        
+        [Authorize(Roles = RoleName.NormalAccount)]
         public async Task<ActionResult> List()
         {
             var favorites = db.Favorites.Where(x => x.userName == User.Identity.Name);
@@ -29,7 +29,7 @@ namespace cima.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = RoleName.NormalAccount)]
         public async Task<ActionResult> Unfavorites(int id)
         {
 

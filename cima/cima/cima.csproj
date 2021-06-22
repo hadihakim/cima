@@ -300,6 +300,14 @@
     <Compile Include="Migrations\202106210738380_EditFavoritesModel.Designer.cs">
       <DependentUpon>202106210738380_EditFavoritesModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106220538121_SeedNormalUser.cs" />
+    <Compile Include="Migrations\202106220538121_SeedNormalUser.Designer.cs">
+      <DependentUpon>202106220538121_SeedNormalUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106220552302_UpdateRoleNameModel.cs" />
+    <Compile Include="Migrations\202106220552302_UpdateRoleNameModel.Designer.cs">
+      <DependentUpon>202106220552302_UpdateRoleNameModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Favorite.cs" />
@@ -455,6 +463,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106210738380_EditFavoritesModel.resx">
       <DependentUpon>202106210738380_EditFavoritesModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106220538121_SeedNormalUser.resx">
+      <DependentUpon>202106220538121_SeedNormalUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106220552302_UpdateRoleNameModel.resx">
+      <DependentUpon>202106220552302_UpdateRoleNameModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

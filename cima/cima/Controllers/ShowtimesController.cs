@@ -16,6 +16,7 @@ namespace cima.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Showtimes
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             var showtimes = db.Showtimes.Include(s => s.Movie);
@@ -41,7 +42,7 @@ namespace cima.Controllers
 
 
 
-
+        [Authorize(Roles = RoleName.NormalAccount)]
         public async Task<ActionResult> Movietime(int id)
         {
             var showtime = db.Showtimes.Include(s => s.Movie).Where(x => x.movieId == id);
@@ -49,35 +50,7 @@ namespace cima.Controllers
             return View("Movielist", await showtime.ToListAsync());
 
 
-            /*if (User.IsInRole(RoleName.CinemaAccount))
-            {
-                var showtime = db.Showtimes.Include(s => s.Movie).Where(x => x.Movie.userName == User.Identity.Name);
-                return View("List", await showtime.ToListAsync());
-            }
-            else if (User.IsInRole(RoleName.applicationAdmin))
-            {
-
-                return View("List", await showtimes.ToListAsync());
-
-            }
-            else
-            {
-                return View("ReadOnlyList", await showtimes.ToListAsync());
-            }*/
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         // GET: Showtimes/Details/5

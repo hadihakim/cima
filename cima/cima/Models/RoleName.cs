@@ -9,5 +9,7 @@ namespace cima.Model
     {
         public const string applicationAdmin = "applicationAdmin";
         public const string CinemaAccount= "CinemaAccount";
+        public const string NormalAccount= "NormalAccount";
+
     }
 }

@@ -167,6 +167,14 @@ namespace cima.Controllers
                     await roleManager.CreateAsync(new IdentityRole("ClientAccount"));*/
                     await UserManager.AddToRoleAsync(user.Id, "CinemaAccount");
                     }
+                    else { 
+
+                       /* var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    await roleManager.CreateAsync(new IdentityRole("NormalAccount"));*/
+                        await UserManager.AddToRoleAsync(user.Id, "NormalAccount");
+
+                    }
 
 
 

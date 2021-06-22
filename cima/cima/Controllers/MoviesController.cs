@@ -102,7 +102,7 @@ namespace cima.Controllers
         /// </summary>
         /// <param></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize(Roles = RoleName.NormalAccount)]
         public async Task<ActionResult> Favorites(int id)  
         {
             try
@@ -127,7 +127,7 @@ namespace cima.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = RoleName.applicationAdmin)]
         public async Task<ActionResult> Unfavorites(int id)
         {
 
