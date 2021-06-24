@@ -1,0 +1,79 @@
+﻿@model IEnumerable<cima.Model.Movie>
+
+@{ ViewBag.Title = "Movies List";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<h2>Movies List</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.userName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieGenre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.releaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.movieName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.movieYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.movieSeason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.starring)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.creator)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.userName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MovieGenre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.releaseDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.movieName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.movieYear)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.movieSeason)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.starring)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.creator)
+    </td>
+    <td>
+
+        <a href="@Url.Action("Favcinlist", "Movies", new { id = item.movieid }) " class="btn btn-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>Favorite</strong>
+            </span>
+        </a>
+
+    </td>
+
+</tr>}
+
+</table>
+

@@ -29,6 +29,27 @@ namespace cima.Controllers
         }
 
 
+        /*[Authorize(Roles = RoleName.NormalAccount)]
+        public ActionResult Mostfavorite()
+        {
+           
+           var favorites = (from c in db.Favorites
+                             group c by new { c.Movie.movieName, c.Movie.userName } into grouping
+                             select new MostFavoriteViewModel
+                             {
+                                 MovieName = grouping.Key.movieName,
+                                 userName = grouping.Key.userName,
+                                 Count = grouping.Count()
+
+                             }).ToList();
+
+
+            return View("List", favorites);
+
+
+        }*/
+
+
         [Authorize(Roles = RoleName.NormalAccount)]
         public async Task<ActionResult> Unfavorites(int id)
         {
@@ -49,6 +70,10 @@ namespace cima.Controllers
             }
 
         }
+
+
+
+
 
 
         protected override void Dispose(bool disposing)

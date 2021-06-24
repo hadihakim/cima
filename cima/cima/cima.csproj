@@ -224,8 +224,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FavoritesController.cs" />
+    <Compile Include="Controllers\FeedBacksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MostFavoriteViewModelController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\ShowtimesController.cs" />
     <Compile Include="Controllers\testingsController.cs" />
@@ -308,9 +310,15 @@
     <Compile Include="Migrations\202106220552302_UpdateRoleNameModel.Designer.cs">
       <DependentUpon>202106220552302_UpdateRoleNameModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106240622528_AddFeedBackModel.cs" />
+    <Compile Include="Migrations\202106240622528_AddFeedBackModel.Designer.cs">
+      <DependentUpon>202106240622528_AddFeedBackModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Favorite.cs" />
+    <Compile Include="Models\FeedBack.cs" />
+    <Compile Include="Models\MostFavoriteViewModel.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -395,6 +403,13 @@
     <Content Include="Views\Showtimes\ReadOnlyList.cshtml" />
     <Content Include="Views\Favorites\List.cshtml" />
     <Content Include="Views\Showtimes\Movielist.cshtml" />
+    <Content Include="Views\MostFavoriteViewModel\MostFavorite.cshtml" />
+    <Content Include="Views\Movies\CinemaList.cshtml" />
+    <Content Include="Views\FeedBacks\Create.cshtml" />
+    <Content Include="Views\FeedBacks\Delete.cshtml" />
+    <Content Include="Views\FeedBacks\Details.cshtml" />
+    <Content Include="Views\FeedBacks\Edit.cshtml" />
+    <Content Include="Views\FeedBacks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -469,6 +484,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106220552302_UpdateRoleNameModel.resx">
       <DependentUpon>202106220552302_UpdateRoleNameModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106240622528_AddFeedBackModel.resx">
+      <DependentUpon>202106240622528_AddFeedBackModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

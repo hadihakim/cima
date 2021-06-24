@@ -24,6 +24,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Most Favorite", "Mostfavorite", "MostFavoriteViewModel")</li>
                     @if (User.IsInRole("applicationAdmin") || User.IsInRole("CinemaAccount"))
                     {
                         <li>@Html.ActionLink("Upcoming Movies", "List", "Movies")</li>

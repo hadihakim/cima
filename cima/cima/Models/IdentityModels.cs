@@ -26,7 +26,7 @@ namespace cima.Model
             Cinema,
             Normal
         }
-    
+
 
     }
 
@@ -39,6 +39,8 @@ namespace cima.Model
         public DbSet<testing> testings { get; set; }
 
         public DbSet<Favorite> Favorites { get; set; }
+
+        public DbSet<FeedBack> FeedBacks { get; set; }
 
 
 

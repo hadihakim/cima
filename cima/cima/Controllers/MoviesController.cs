@@ -48,6 +48,54 @@ namespace cima.Controllers
 
         }
 
+
+
+        [Authorize]
+        public async Task<ActionResult> CinemaList(string id)
+        {
+            //return Content(string.Format("str={0}",id));
+         
+           if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var favorite = db.Favorites.Where(x => x.userName == User.Identity.Name);
+
+            var movi = db.Movies.Where(x => x.movieid > 0 );
+
+            foreach (Favorite fav in favorite)
+            {
+                movi = movi.Where(x => x.movieid != fav.movieId);
+
+            }
+            // string s = str.Trim().ToLower();
+            movi = movi.Where(x => x.userName == id);
+
+            return View("CinemaList", await movi.ToListAsync());
+
+            /*if (User.IsInRole(RoleName.CinemaAccount))
+
+            {
+                // User.Identity.GetUserId(); --> get the current user id
+                var movie = db.Movies.Where(x => x.userName == User.Identity.Name);
+
+                return View("List", await movie.ToListAsync());
+
+            }
+            else if (User.IsInRole(RoleName.applicationAdmin))
+            {
+                return View("List", await db.Movies.ToListAsync());
+            }*/
+
+
+        }
+
+
+
+
+
+
+
         // GET: Movies/Details/5
         [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
         public async Task<ActionResult> Details(int? id)
@@ -126,6 +174,40 @@ namespace cima.Controllers
             }
 
         }
+
+
+
+        [Authorize(Roles = RoleName.NormalAccount)]
+        public async Task<ActionResult> Favcinlist(int id) 
+        {
+            Favorite ffavorite = new Favorite();
+            var currentUMUser = User.Identity.Name;
+            ffavorite.userName = currentUMUser;
+            var v = db.Movies.Find(id);
+            string ss = v.userName;
+            try
+            {
+               
+                //var currentUser = db.Users.Find(currentUMUser.UserID);
+                
+                ffavorite.movieId = id;
+
+
+                db.Favorites.Add(ffavorite);
+                await db.SaveChangesAsync();
+                return RedirectToAction("CinemaList", new {id = ss});
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("CinemaList", new {id = ss});
+            }
+
+        }
+
+
+
+
 
         [Authorize(Roles = RoleName.applicationAdmin)]
         public async Task<ActionResult> Unfavorites(int id)

@@ -13,6 +13,26 @@ namespace cima
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            /*routes.MapRoute(
+            "Movies",
+            "CinemaList/{str}",
+            new { controller = "Movies", action = "CinemaList" },
+            new { str = @"\w+" });*/
+
+
+
+            routes.MapRoute(
+    "Movies",
+    "Movies/CinemaList/{myString}",
+    new { controller = "Movies", action = "CinemaList", myString = UrlParameter.Optional });
+
+
+
+
+
+
+
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
