@@ -20,7 +20,7 @@ namespace cima.Model
         public int movieId { get; set; }
         public virtual Movie Movie { get; set; }
 
-        [Required]
+        
         [StringLength(500)]
         [Display(Name = "Feedback Comment")]
         public string comment { get; set; }

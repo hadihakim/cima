@@ -1,0 +1,110 @@
+﻿@model cima.Model.MovieFeedBackViewModel
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FeedBack</h2>
+
+<div>
+    <h4>Movies</h4>
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    <div class=" form-group">
+        @Html.LabelFor(m => m.userName, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.userName, new { htmlAttributes = new { @readonly = "readonly" } })
+            @Html.ValidationMessageFor(m => m.userName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class=" form-group">
+        @Html.LabelFor(m => m.movieName, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.movieName, new { htmlAttributes = new { @readonly = "readonly" } })
+            @Html.ValidationMessageFor(m => m.movieName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class=" form-group">
+        @Html.LabelFor(m => m.releaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.releaseDate, new { htmlAttributes = new { @readonly = "readonly" } })
+            @Html.ValidationMessageFor(m => m.releaseDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class=" form-group">
+        @Html.LabelFor(m => m.movieYear, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.movieYear, new { htmlAttributes = new { @readonly = "readonly" } })
+            @Html.ValidationMessageFor(m => m.movieYear, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class=" form-group">
+        @Html.LabelFor(m => m.movieSeason, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.movieSeason, new { htmlAttributes = new { @readonly = "readonly" } })
+            @Html.ValidationMessageFor(m => m.movieSeason, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class=" form-group">
+        @Html.LabelFor(m => m.starring, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.starring, new { htmlAttributes = new { @readonly = "readonly" } })
+            @Html.ValidationMessageFor(m => m.starring, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class=" form-group">
+        @Html.LabelFor(m => m.creator, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.creator, new { htmlAttributes = new { @readonly = "readonly" } })
+            @Html.ValidationMessageFor(m => m.creator, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class=" form-group">
+        @Html.LabelFor(m => m.comment, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.comment, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.comment, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class=" form-group">
+
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.movieId, new { @Value = Model.movieId, @type = "hidden" })
+            @Html.ValidationMessageFor(m => m.movieId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+   
+
+</div>
+
+    
+
+    }
+</div>
+
+

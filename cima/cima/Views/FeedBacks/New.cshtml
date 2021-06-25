@@ -1,0 +1,69 @@
+﻿@model cima.Model.FeedBack
+@{ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>FeedBack</h2>
+
+<div>
+    <h4>Movies</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.releaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.releaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.movieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.movieName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.movieYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.movieYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.movieSeason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.movieSeason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.starring)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.starring)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.creator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.creator)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("New", "FeedBacks")) {
+    <div class=" form-group">
+        @Html.LabelFor( m => m.comment)
+        @Html.TextAreaFor(m => m.comment, new { @class = "form-control"}) 
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    }
+</div>

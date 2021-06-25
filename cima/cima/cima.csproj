@@ -229,8 +229,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MostFavoriteViewModelController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\MoviesFeedBacksViewModelController.cs" />
     <Compile Include="Controllers\ShowtimesController.cs" />
-    <Compile Include="Controllers\testingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -314,6 +314,14 @@
     <Compile Include="Migrations\202106240622528_AddFeedBackModel.Designer.cs">
       <DependentUpon>202106240622528_AddFeedBackModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106250334394_AddDataAnnotations.cs" />
+    <Compile Include="Migrations\202106250334394_AddDataAnnotations.Designer.cs">
+      <DependentUpon>202106250334394_AddDataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106250605220_RemoveTesting.cs" />
+    <Compile Include="Migrations\202106250605220_RemoveTesting.Designer.cs">
+      <DependentUpon>202106250605220_RemoveTesting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Favorite.cs" />
@@ -322,9 +330,9 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MovieFeedBackViewModel.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\Showtime.cs" />
-    <Compile Include="Models\testing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -384,11 +392,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\testings\Create.cshtml" />
-    <Content Include="Views\testings\Delete.cshtml" />
-    <Content Include="Views\testings\Details.cshtml" />
-    <Content Include="Views\testings\Edit.cshtml" />
-    <Content Include="Views\testings\Index.cshtml" />
     <Content Include="Views\Movies\Create.cshtml" />
     <Content Include="Views\Movies\Delete.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
@@ -410,6 +413,8 @@
     <Content Include="Views\FeedBacks\Details.cshtml" />
     <Content Include="Views\FeedBacks\Edit.cshtml" />
     <Content Include="Views\FeedBacks\Index.cshtml" />
+    <Content Include="Views\FeedBacks\New.cshtml" />
+    <Content Include="Views\MoviesFeedBacksViewModel\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -487,6 +492,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106240622528_AddFeedBackModel.resx">
       <DependentUpon>202106240622528_AddFeedBackModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106250334394_AddDataAnnotations.resx">
+      <DependentUpon>202106250334394_AddDataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106250605220_RemoveTesting.resx">
+      <DependentUpon>202106250605220_RemoveTesting.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

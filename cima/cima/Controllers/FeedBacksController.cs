@@ -22,6 +22,35 @@ namespace cima.Controllers
             return View(await feedBacks.ToListAsync());
         }
 
+
+        public async Task<ActionResult> New(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.Movie = db.Movies.Where(x => x.movieid == id);
+            Movie movie = await db.Movies.FindAsync(id);
+            
+            if (movie == null)
+            {
+
+                return HttpNotFound();
+            }
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         // GET: FeedBacks/Details/5
         public async Task<ActionResult> Details(int? id)
         {

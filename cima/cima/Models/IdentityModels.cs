@@ -36,8 +36,6 @@ namespace cima.Model
 
         public DbSet<Showtime> Showtimes { get; set; }
 
-        public DbSet<testing> testings { get; set; }
-
         public DbSet<Favorite> Favorites { get; set; }
 
         public DbSet<FeedBack> FeedBacks { get; set; }
