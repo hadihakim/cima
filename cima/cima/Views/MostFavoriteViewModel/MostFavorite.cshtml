@@ -11,6 +11,9 @@
 <table class="table">
     <tr>
         <th>
+            Rank
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.MovieName)
         </th>
         <th>
@@ -21,22 +24,35 @@
         </th>
         <th></th>
     </tr>
+  @{
+      int x = 1;
+      foreach (var item in Model)
+      {
 
-@foreach (var item in Model) {
 <tr>
+    <td>
+        <p>@x</p>
+    </td>
     <td>
         @Html.DisplayFor(modelItem => item.MovieName)
     </td>
     <td>
-        <a href="@Url.Action("CinemaList", "Movies", new {id = item.userName})">
+        <a href="@Url.Action("CinemaList", "Movies", new { id = item.userName })">
             @Html.DisplayFor(modelItem => item.userName)
         </a>
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Count)
     </td>
+    @{ 
+        x = x + 1;
+
+    }
 
 </tr>
-}
+  }
+      }
+
+
 
 </table>

@@ -82,7 +82,7 @@ namespace cima.Controllers
                 feed.comment = moviefeed.comment;
 
             //var currentUser = db.Users.Find(currentUMUser.UserID);
-            if (moviefeed.comment.Length > 500)
+            if (moviefeed.comment?.Length > 500)
             {
                 return View(moviefeed);
 
@@ -91,12 +91,7 @@ namespace cima.Controllers
 
             db.FeedBacks.Add(feed);
                 await db.SaveChangesAsync();
-                if (moviefeed.creator.Length >500)
-                {
-                    return View(moviefeed);
-
-
-                }
+            
                 return RedirectToAction("Index", "FeedBacks");
             
           
@@ -104,7 +99,7 @@ namespace cima.Controllers
 
 
         // GET: MoviesFeedBacksViewModel/Details/5
-        public ActionResult Details(int id)
+        /*public ActionResult Details(int id)
         {
             return View();
         }
@@ -173,7 +168,7 @@ namespace cima.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
 
         protected override void Dispose(bool disposing)

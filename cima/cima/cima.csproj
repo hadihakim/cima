@@ -322,6 +322,14 @@
     <Compile Include="Migrations\202106250605220_RemoveTesting.Designer.cs">
       <DependentUpon>202106250605220_RemoveTesting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106250832159_AddRequiredDataAnnotation.cs" />
+    <Compile Include="Migrations\202106250832159_AddRequiredDataAnnotation.Designer.cs">
+      <DependentUpon>202106250832159_AddRequiredDataAnnotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106250855391_RemoveRequired.cs" />
+    <Compile Include="Migrations\202106250855391_RemoveRequired.Designer.cs">
+      <DependentUpon>202106250855391_RemoveRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Favorite.cs" />
@@ -341,6 +349,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap_Darkly.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -415,6 +424,7 @@
     <Content Include="Views\FeedBacks\Index.cshtml" />
     <Content Include="Views\FeedBacks\New.cshtml" />
     <Content Include="Views\MoviesFeedBacksViewModel\New.cshtml" />
+    <Content Include="Views\FeedBacks\Myfeed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -498,6 +508,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106250605220_RemoveTesting.resx">
       <DependentUpon>202106250605220_RemoveTesting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106250832159_AddRequiredDataAnnotation.resx">
+      <DependentUpon>202106250832159_AddRequiredDataAnnotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106250855391_RemoveRequired.resx">
+      <DependentUpon>202106250855391_RemoveRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

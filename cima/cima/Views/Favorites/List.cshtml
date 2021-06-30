@@ -6,8 +6,15 @@
 }
 
 <h2>My Favorite Movies</h2>
+@if (Model.Any() == false)
+{
+<hr />
+<h3>You do not have favorite movies</h3>
 
-<table class="table">
+}
+else
+{
+    <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Movie.movieName)
@@ -29,11 +36,17 @@
         @Html.DisplayFor(modelItem => item.Movie.userName)
     </td>
     <td>
-   
+
         <a href="@Url.Action("Unfavorites", "Favorites", new { id = item.Movie.movieid }) " class="btn btn-primary">
             <i class="icon-pencil icon-white"></i>
             <span>
                 <strong>Unfavorite</strong>
+            </span>
+        </a>
+        <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.Movie.movieid}) " class="btn btn-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>FeedBack</strong>
             </span>
         </a>
 
@@ -43,3 +56,6 @@
 }
 
 </table>
+}
+
+

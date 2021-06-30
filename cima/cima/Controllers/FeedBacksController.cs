@@ -40,6 +40,31 @@ namespace cima.Controllers
             return View();
         }
 
+        [Authorize]
+        public async Task<ActionResult> Myfeed()
+        {
+
+            if (User.IsInRole("NormalAccount"))
+            {
+                var feedBacks = db.FeedBacks.Include(f => f.Movie).Where(x => x.userName == User.Identity.Name);
+                return View(await feedBacks.ToListAsync());
+            }
+
+            else if (User.IsInRole("CinemaAccount"))
+            {
+                var feedBacks = db.FeedBacks.Include(f => f.Movie).Where(x => x.Movie.userName == User.Identity.Name);
+                return View(await feedBacks.ToListAsync());
+            }
+            else
+            {
+                var feedBacks = db.FeedBacks;
+                return View(await feedBacks.ToListAsync());
+            }
+
+        }
+
+
+
 
 
 
@@ -118,7 +143,7 @@ namespace cima.Controllers
             {
                 db.Entry(feedBack).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Myfeed");
             }
             ViewBag.movieId = new SelectList(db.Movies, "movieid", "movieName", feedBack.movieId);
             return View(feedBack);
@@ -147,7 +172,7 @@ namespace cima.Controllers
             FeedBack feedBack = await db.FeedBacks.FindAsync(id);
             db.FeedBacks.Remove(feedBack);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Myfeed");
         }
 
         protected override void Dispose(bool disposing)

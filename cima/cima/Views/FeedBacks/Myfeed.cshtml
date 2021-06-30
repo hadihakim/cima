@@ -4,18 +4,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Movies FeedBack</h2>
-@if (User.IsInRole("NormalAccount") || User.IsInRole("CinemaAccount"))
+@if (Model.Any() == false)
 {
-    <a href="@Url.Action("Myfeed", "FeedBacks") " class="btn btn-primary">
-        <i class="icon-pencil icon-white"></i>
-        <span>
-            <strong>My Feedbacks</strong>
-        </span>
-    </a>
+    <h2>You do not have feedback yet</h2>
 
 }
+else
+{
+    <h2>My Feedbacks</h2>
+
 
 <table class="table">
     <tr>
@@ -49,8 +46,25 @@
             <td>
                 @Html.DisplayFor(modelItem => item.userName)
             </td>
-            
+            <td>
+                @if (User.IsInRole("NormalAccount"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.feedBackId }) 
+                }
+
+                @if (User.IsInRole("NormalAccount"))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.feedBackId })
+                }
+
+                @Html.ActionLink("Details", "Details", new { id = item.feedBackId })
+
+            </td>
         </tr>
     }
 
 </table>
+
+}
+
+

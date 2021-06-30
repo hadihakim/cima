@@ -57,7 +57,7 @@ namespace cima.Model
 
         
 
-        [Display(Name = "Movie Seanson")]
+        [Display(Name = "Movie Season")]
         public int movieSeason { get; set; }
 
         [Display(Name = "Movie Starring")]

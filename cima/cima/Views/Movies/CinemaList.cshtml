@@ -1,10 +1,17 @@
 ﻿@model IEnumerable<cima.Model.Movie>
 
 @{ ViewBag.Title = "Movies List";
-                Layout = "~/Views/Shared/_Layout.cshtml"; }
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<h2>Movies List</h2>
 
+@if (Model.Any() == false)
+{
+    <h2>No Movies to favorite</h2>
+
+}
+else
+{
+    <h2>Choose your favorite movies</h2>
 <table class="table">
     <tr>
         <th>
@@ -70,10 +77,17 @@
                 <strong>Favorite</strong>
             </span>
         </a>
+        <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.movieid }) " class="btn btn-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>FeedBack</strong>
+            </span>
+        </a>
 
     </td>
 
-</tr>}
+</tr>
+    }
 
 </table>
-
+}

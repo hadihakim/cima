@@ -12,6 +12,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Movie.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.userName)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Movie.movieName)
         </dt>
 
@@ -38,6 +46,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.feedBackId }) |
+    @if (User.IsInRole("NormalAccount"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.feedBackId })
+    }
+    
     @Html.ActionLink("Back to List", "Index")
 </p>

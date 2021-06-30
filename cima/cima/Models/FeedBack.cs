@@ -27,7 +27,7 @@ namespace cima.Model
 
 
         [Required]
-        [Display(Name = "Added by")]
+        [Display(Name = "Feedback By")]
         [StringLength(256)]
         public string userName { get; set; }
 

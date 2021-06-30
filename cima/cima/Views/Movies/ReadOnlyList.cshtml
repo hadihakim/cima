@@ -4,8 +4,14 @@
     ViewBag.Title = "Movies List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (Model.Any() == false)
+{
+    <h2>No Movies to favorite</h2>
 
-<h2>Movies List</h2>
+}
+else
+{
+    <h2>Movies List</h2>
 
 <table class="table">
     <tr>
@@ -87,4 +93,6 @@
 }
 
 </table>
+
+}
 
