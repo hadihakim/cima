@@ -1,0 +1,177 @@
+﻿    @model IEnumerable<cima.Model.Movie>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+
+    @{ ViewBag.Title = "Movies List";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+    @if (Model.Any() == false)
+    {
+    if (User.IsInRole("NormalAccont"))
+    {
+    <h2>No Movies to favorite</h2> }
+
+    else
+    {
+    <h2>No Movies to show</h2> }
+
+
+    }
+    else
+    {
+    if (User.IsInRole("NormalAccount"))
+    {
+    <h2>Choose your favorite movies</h2> }
+    else
+    {
+    <h2>Movies List</h2> }
+    <table id="movies" class="display">
+    <thead>
+
+    <tr>
+    <th>
+    @Html.DisplayNameFor(model => model.userName)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.MovieGenre)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.releaseDate)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.movieName)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.movieYear)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.movieSeason)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.starring)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.creator)
+    </th>
+    @if ((User.IsInRole("CinemaAccount") && Model.Where(x=>x.userName == User.Identity.Name).Any()) || User.IsInRole("applicationAdmin"))
+    {
+    <th>
+    Detail
+    </th>}
+    @if ((User.IsInRole("CinemaAccount") && Model.Where(x=>x.userName == User.Identity.Name).Any()) || User.IsInRole("applicationAdmin"))
+    {
+    <th>
+    Delete
+    </th>}
+    @if (User.IsInRole("CinemaAccount") && Model.Where(x=>x.userName == User.Identity.Name).Any())
+    {
+    <th>
+    Edit
+
+    </th>}
+
+    </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+    <tbody>
+    <tr>
+    <td>
+    @Html.DisplayFor(modelItem => item.userName)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.MovieGenre)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.releaseDate)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.movieName)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.movieYear)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.movieSeason)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.starring)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.creator)
+    </td>
+
+         
+    @if ((User.IsInRole("CinemaAccount") && item.userName == User.Identity.Name))
+    {
+
+    <td>
+    <a href="@Url.Action("Details", "Movies", new { id = item.movieid })">
+    <i class="icon-pencil icon-white"></i>
+    <span>
+    <strong>Details</strong>
+    </span>
+    </a>
+    </td>
+     <td>   
+        <button data-movie-id="@item.movieid" class="btn-link js-delete">Delete</button>
+    </td>  }
+    @if (User.IsInRole("applicationAdmin"))
+    {
+
+    <td>
+    <a href="@Url.Action("Detailsc", "Movies", new { id = item.movieid })">
+    <i class="icon-pencil icon-white"></i>
+    <span>
+    <strong>Details</strong>
+    </span>
+    </a>
+    </td>
+     <td>   
+        <button data-movie-id="@item.movieid" class="btn-link js-delete">Delete</button>
+    </td>  }
+        @if (User.IsInRole("CinemaAccount") && item.userName == User.Identity.Name)
+        {
+    <td>
+    <a href="@Url.Action("Edit", "Movies", new { id = item.movieid }) ">
+    <i class="icon-pencil icon-white"></i>
+    <span>
+    <strong>Edit</strong>
+    </span>
+    </a>
+    </td>
+
+        }
+
+
+
+
+    </tr>
+    </tbody>}
+    </table>}
+
+    @section scripts
+    {
+
+    <script>
+    $(document).ready(function () {
+        $("#movies").DataTable();
+        $("#movies .js-delete").on("click", function () {
+            var button = $(this);
+            if (confirm("Are you sure you want to delete this customer?")) {
+                $.ajax({
+                    url: "/api/movies/" + button.attr("data-movie-id"),
+                    method: "DELETE",
+                    success: function () {
+                        button.parents("tr").remove();
+                    }
+                });
+            }
+        });
+
+    });
+    </script>
+    }

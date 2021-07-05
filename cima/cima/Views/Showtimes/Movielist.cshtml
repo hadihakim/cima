@@ -6,6 +6,11 @@
 }
 
 <h2>Movies Showtime</h2>
+@if (Model.Any() == false)
+{
+    <h4>No Showtime to show</h4>
+}
+else{
 
 <table class="table">
     <tr>
@@ -64,3 +69,4 @@
     }
 
 </table>
+}   

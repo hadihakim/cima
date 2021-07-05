@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<cima.Model.FeedBack>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
 
 @{
     ViewBag.Title = "Index";
@@ -8,7 +11,7 @@
 <h2>Movies FeedBack</h2>
 @if (User.IsInRole("NormalAccount") || User.IsInRole("CinemaAccount"))
 {
-    <a href="@Url.Action("Myfeed", "FeedBacks") " class="btn btn-primary">
+    <a href="@Url.Action("Myfeed", "FeedBacks") " class="btn btn-danger">
         <i class="icon-pencil icon-white"></i>
         <span>
             <strong>My Feedbacks</strong>
@@ -17,40 +20,91 @@
 
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.movieName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.userName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.comment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.userName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table id="FeedBacks" class="display">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Movie.movieName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Movie.userName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.userName)
-            </td>
-            
-        </tr>
-    }
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.movieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.userName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.userName)
+            </th>
+            @if (User.IsInRole("applicationAdmin"))
+            {
+                <th>
+                    Details
+                </th>
+            }
+            @if (User.IsInRole("applicationAdmin"))
+            {
+                <th>
+                    Delete
+                </th>
+            }
 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movie.movieName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movie.userName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+
+
+                @if (User.IsInRole("applicationAdmin"))
+                {
+                    <td>
+                        <a href="@Url.Action("Details", "Feedbacks", new { id = item.feedBackId })" >
+                            <i class="icon-pencil icon-white"></i>
+                            <span>
+                                <strong>Details</strong>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Delete", "Feedbacks", new { id = item.feedBackId}) " >
+                            <i class="icon-pencil icon-white"></i>
+                            <span>
+                                <strong>Delete</strong>
+                            </span>
+                        </a>
+                    </td>
+
+                }
+
+
+
+            </tr>
+
+        }
+    </tbody>
 </table>
+
+@section scripts
+{
+
+    <script>
+    $(document).ready(function () {
+            $("#FeedBacks").DataTable();
+
+        });
+    </script>
+}

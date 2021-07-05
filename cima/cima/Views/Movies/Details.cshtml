@@ -70,6 +70,22 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.movieid }) |
-    @Html.ActionLink("Back to List", "List")
+    @if (User.IsInRole("CinemaAccount"))
+    {
+
+    <a href="@Url.Action("Edit", "Movies", new {id = Model.movieid }) " class="btn btn-outline-primary">
+        <i class="icon-pencil icon-white"></i>
+        <span>
+            <strong>Edit</strong>
+        </span>
+    </a>
+        
+    }
+
+<a href="@Url.Action("List", "Movies") " class="btn btn-outline-primary">
+    <i class="icon-pencil icon-white"></i>
+    <span>
+        <strong>Back</strong>
+    </span>
+</a>
 </p>

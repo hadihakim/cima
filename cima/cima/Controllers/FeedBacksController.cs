@@ -65,17 +65,6 @@ namespace cima.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         // GET: FeedBacks/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -117,13 +106,19 @@ namespace cima.Controllers
         }
 
         // GET: FeedBacks/Edit/5
+        [Authorize(Roles = RoleName.NormalAccount)]
         public async Task<ActionResult> Edit(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             FeedBack feedBack = await db.FeedBacks.FindAsync(id);
+            if (feedBack.userName != User.Identity.Name)
+            {
+
+            }
             if (feedBack == null)
             {
                 return HttpNotFound();
@@ -150,6 +145,7 @@ namespace cima.Controllers
         }
 
         // GET: FeedBacks/Delete/5
+        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.NormalAccount)]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,6 +153,11 @@ namespace cima.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             FeedBack feedBack = await db.FeedBacks.FindAsync(id);
+            if (feedBack.userName != User.Identity.Name && User.Identity.Name != "admin@gmail.com")
+            {
+                return HttpNotFound();
+
+            }
             if (feedBack == null)
             {
                 return HttpNotFound();
@@ -172,6 +173,10 @@ namespace cima.Controllers
             FeedBack feedBack = await db.FeedBacks.FindAsync(id);
             db.FeedBacks.Remove(feedBack);
             await db.SaveChangesAsync();
+            if (User.IsInRole("applicationAdmin"))
+            {
+                return RedirectToAction("Index");
+            }else
             return RedirectToAction("Myfeed");
         }
 

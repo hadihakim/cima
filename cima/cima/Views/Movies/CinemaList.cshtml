@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<cima.Model.Movie>
+     <link rel="stylesheet" type="text/css" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 
 @{ ViewBag.Title = "Movies List";
     Layout = "~/Views/Shared/_Layout.cshtml"; }
@@ -6,88 +7,165 @@
 
 @if (Model.Any() == false)
 {
-    <h2>No Movies to favorite</h2>
+    if (User.IsInRole("NormalAccont"))
+    {
+        <h2>No Movies to favorite</h2>
+    }
+
+    else
+    { 
+        <h2>No Movies to show</h2>
+    }
+
 
 }
 else
 {
-    <h2>Choose your favorite movies</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.userName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MovieGenre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.releaseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.movieName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.movieYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.movieSeason)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.starring)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.creator)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    if (User.IsInRole("NormalAccount"))
     {
-
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.userName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.MovieGenre)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.releaseDate)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.movieName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.movieYear)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.movieSeason)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.starring)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.creator)
-    </td>
-    <td>
-
-        <a href="@Url.Action("Favcinlist", "Movies", new { id = item.movieid }) " class="btn btn-primary">
-            <i class="icon-pencil icon-white"></i>
-            <span>
-                <strong>Favorite</strong>
-            </span>
-        </a>
-        <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.movieid }) " class="btn btn-primary">
-            <i class="icon-pencil icon-white"></i>
-            <span>
-                <strong>FeedBack</strong>
-            </span>
-        </a>
-
-    </td>
-
-</tr>
+        <h2>Choose your favorite movies</h2>
     }
+    else
+    { 
+        <h2>Movies List</h2>
+    }
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.userName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MovieGenre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.releaseDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.movieName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.movieYear)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.movieSeason)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.starring)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.creator)
+                        </th>
+                        <th></th>
+                    </tr>
 
-</table>
+  @foreach (var item in Model)
+  {
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.userName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieGenre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.releaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.movieName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.movieYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.movieSeason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.starring)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.creator)
+        </td>
+        
+            @if (User.IsInRole("NormalAccount"))
+            {
+                <td>
+                <a href="@Url.Action("Favcinlist", "Movies", new { id = item.movieid }) " class="favlink">
+                    <i class="fav fas fa-star"></i>
+                </a> 
+                </td>
+
+                <td>
+                 <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.movieid }) " class="">
+                 <i class="com far fa-comment-lines"></i>
+                 </a>
+                </td>
+
+            }   
+            <td>
+            @if ((User.IsInRole("CinemaAccount") || User.IsInRole("applicationAdmin")) && item.userName == User.Identity.Name)
+            { 
+                <a href="@Url.Action("Details", "Movies", new { id = item.movieid }) " class="btn btn-primary mybutton">
+                    <i class="icon-pencil icon-white"></i>
+                    <span>
+                        <strong>Details</strong>
+                    </span>
+                </a><br />
+
+                <a href="@Url.Action("Delete", "Movies", new { id = item.movieid }) " class="btn btn-primary mybutton">
+                    <i class="icon-pencil icon-white"></i>
+                    <span>
+                        <strong>Delete</strong>
+                    </span>
+                </a><br />
+             if (User.IsInRole("CinemaAccount"))
+             {
+                <a href="@Url.Action("Edit", "Movies", new { id = item.movieid }) " class="btn btn-primary mybutton">
+                    <i class="icon-pencil icon-white"></i>
+                    <span>
+                        <strong>Edit</strong>
+                    </span>
+                </a>
+             }
+
+            }
+
+
+        </td>
+
+    </tr>}
+
+ </table>
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#movies").DataTable();
+        });
+    </script>
+}
+
+    <style>
+        .fav {
+            font-size: 55px;
+            color: gold;
+            opacity: 0.7;
+        }
+
+        .com {
+            font-size: 55px;
+            color: blue;
+            opacity: 0.7;
+        }
+
+        i:hover {
+            opacity: 1;
+        }
+
+        
+    </style>
+   
 }

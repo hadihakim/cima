@@ -9,52 +9,49 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Cima", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("FeedBacks", "Index", "FeedBacks")</li>
-                    <li>@Html.ActionLink("Rank", "Mostfavorite", "MostFavoriteViewModel")</li>
-                    @if (User.IsInRole("applicationAdmin") || User.IsInRole("CinemaAccount"))
-                    {
-                        <li>@Html.ActionLink("Upcoming Movies", "List", "Movies")</li>
-                        <li>@Html.ActionLink("Current Movies", "Index", "Showtimes")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Movies", "List", "Movies")</li>
-                        <li>@Html.ActionLink("Movies Showtime", "Index", "Showtimes")</li>
-                        <li>@Html.ActionLink("My Favorites", "List", "Favorites")</li>
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
+ <div class="container">
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+ </button>
+ <a class="navbar-brand" href="/">Cima</a>
+ <div class="navbar-collapse collapse" id="navbarSupportedContent">
+     <ul class="nav navbar-nav mr-auto">
+         <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+         <li class="nav-item"><a href="/Home/About" class="nav-link">About</a></li>
+         <li class="nav-item"><a href="/Home/Contact" class="nav-link">Contact</a></li>
 
-                    }
+         <li class="nav-item"><a href="/Feedbacks/Index" class="nav-link">FeedBacks</a></li>
 
+         <li class="nav-item"><a href="/MostFavoriteViewModel/Mostfavorite" class="nav-link">Rank</a></li>
 
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
+         @if (User.IsInRole("applicationAdmin") || User.IsInRole("CinemaAccount"))
+         {
+ <li class="nav-item"><a href="/Movies/List" class="nav-link">Upcoming Movies</a></li>
+                 <li class="nav-item"><a href="/Showtimes/Index" class="nav-link">Current Movies</a></li>
+ }
+             else
+             {
+ <li class="nav-item"><a href="/Movies/List" class="nav-link">Movies</a></li>
+                 <li class="nav-item"><a href="/Showtimes/Index" class="nav-link">Movies Showtime</a></li>
+                                 <li class="nav-item"><a href="/Favorites/List" class="nav-link">My Favorites</a></li>
+}
+
+     </ul>
+     @Html.Partial("_LoginPartial")
+ </div>
+ </div>
+</nav>
+    <br />
+<div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - By Hadi Hakim</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    
+    @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
 </body>
 </html>

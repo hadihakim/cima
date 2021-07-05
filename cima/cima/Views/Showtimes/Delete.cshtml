@@ -1,4 +1,4 @@
-﻿@model cima.Model.Showtime
+﻿    @model cima.Model.Showtime
 
 @{
     ViewBag.Title = "Delete";
@@ -66,8 +66,13 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-outline-primary"/>
+            <a href="@Url.Action("Index", "Showtimes") " class="btn btn-outline-primary">
+                <i class="icon-pencil icon-white"></i>
+                <span>
+                    <strong>Back</strong>
+                </span>
+            </a>
         </div>
     }
 </div>

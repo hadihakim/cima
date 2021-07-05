@@ -46,20 +46,22 @@
             @Html.EditorFor(model => model.comment, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.comment, "", new { @class = "text-danger" })
         </div>
-    </div>
+    </div><br/>
 
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Save" class="btn btn-outline-primary" />
+            <a href="@Url.Action("Myfeed", "Feedbacks")" class="btn btn-outline-primary">
+                <i class="icon-pencil icon-white"></i>
+                <span>
+                    <strong>Back</strong>
+                </span>
+            </a>
         </div>
     </div>
 </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

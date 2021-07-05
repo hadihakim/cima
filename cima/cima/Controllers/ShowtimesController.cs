@@ -70,7 +70,7 @@ namespace cima.Controllers
         }
 
         // GET: Showtimes/Create
-        [Authorize(Roles = RoleName.applicationAdmin+","+RoleName.CinemaAccount)]
+        [Authorize(Roles = RoleName.CinemaAccount)]
         public ActionResult Create()
         {
             
@@ -84,7 +84,7 @@ namespace cima.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
+        [Authorize(Roles = RoleName.CinemaAccount)]
         public async Task<ActionResult> Create([Bind(Include = "showtimeId,movieId,day,time1,time2,time3,time4")] Showtime showtime)
         {
             if (ModelState.IsValid)
@@ -102,7 +102,7 @@ namespace cima.Controllers
         }
 
         // GET: Showtimes/Edit/5
-        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
+        [Authorize(Roles = RoleName.CinemaAccount)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -110,6 +110,11 @@ namespace cima.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Showtime showtime = await db.Showtimes.FindAsync(id);
+            if (showtime.Movie.userName != User.Identity.Name)
+            {
+                return HttpNotFound();
+
+            }
             if (showtime == null)
             {
                 return HttpNotFound();
@@ -123,7 +128,7 @@ namespace cima.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
+        [Authorize(Roles = RoleName.CinemaAccount)]
         public async Task<ActionResult> Edit([Bind(Include = "showtimeId,movieId,day,time1,time2,time3,time4")] Showtime showtime)
         {
             if (ModelState.IsValid)
@@ -145,6 +150,10 @@ namespace cima.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Showtime showtime = await db.Showtimes.FindAsync(id);
+            if (showtime.Movie.userName != User.Identity.Name && User.Identity.Name != "admin@gmail.com")
+            {
+                return HttpNotFound();
+            }
             if (showtime == null)
             {
                 return HttpNotFound();
@@ -159,6 +168,12 @@ namespace cima.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Showtime showtime = await db.Showtimes.FindAsync(id);
+
+            if (showtime.Movie.userName != User.Identity.Name && User.Identity.Name != "admin@gmail.com")
+            {
+                return HttpNotFound();
+            }
+
             db.Showtimes.Remove(showtime);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

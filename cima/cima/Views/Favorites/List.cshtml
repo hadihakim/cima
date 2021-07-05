@@ -1,20 +1,20 @@
 ﻿@model IEnumerable<cima.Model.Favorite>
+<link rel="stylesheet" type="text/css" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 
-@{
-    ViewBag.Title = "Favorites Movies";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
+@{ ViewBag.Title = "Favorites Movies";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <h2>My Favorite Movies</h2>
 @if (Model.Any() == false)
 {
-<hr />
-<h3>You do not have favorite movies</h3>
+    <hr />
+    <h3>You do not have favorite movies</h3>
 
 }
 else
 {
-    <table class="table">
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Movie.movieName)
@@ -22,40 +22,61 @@ else
         <th>
             @Html.DisplayNameFor(model => model.Movie.userName)
         </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
 <tr>
     <td>
         <a href="@Url.Action("Movietime", "Showtimes", new { id = item.Movie.movieid })">
             @Html.DisplayFor(modelItem => item.Movie.movieName)
         </a>
     </td>
-    <td>
+    <td >
         @Html.DisplayFor(modelItem => item.Movie.userName)
     </td>
-    <td>
 
-        <a href="@Url.Action("Unfavorites", "Favorites", new { id = item.Movie.movieid }) " class="btn btn-primary">
-            <i class="icon-pencil icon-white"></i>
-            <span>
-                <strong>Unfavorite</strong>
-            </span>
+    <td class="tdf">
+        <a href="@Url.Action("Unfavorites", "Favorites", new { id = item.Movie.movieid }) " class="favlink">
+            <i class="fav far fa-star"></i>
         </a>
-        <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.Movie.movieid}) " class="btn btn-primary">
-            <i class="icon-pencil icon-white"></i>
-            <span>
-                <strong>FeedBack</strong>
-            </span>
-        </a>
-
     </td>
-    
-</tr>
-}
+    <td class="tdf">
+        <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.Movie.movieid }) " class="">
+            <i class="com far fa-comment-lines"></i>
+        </a>
+    </td>
+
+
+
+</tr>}
 
 </table>
+
+<style>
+    .fav {
+        font-size: 55px;
+        color: gold;
+        opacity: 1;
+        
+    }
+
+    .com {
+        font-size: 55px;
+        color: blue;
+        opacity: 1;
+    }
+
+    i:hover {
+        opacity: 0.7;
+    }
+
+    .tdf{
+        width:55px;
+    }
+</style>
+
+
 }
 
 

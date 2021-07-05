@@ -1,58 +1,91 @@
 ﻿@model IEnumerable<cima.Model.Movie>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
 
-@{
-    ViewBag.Title = "Movies List";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+
+@{ ViewBag.Title = "Movies List";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <h2>Movies List</h2>
+@if (Model.Any() == false)
+{
+<h4>No Movies to show</h4>
+    if (User.IsInRole("CinemaAccount"))
+    {
+<a href="@Url.Action("Create", "Movies") " class="btn btn-danger">
+    <i class="icon-pencil icon-white"></i>
+    <span>
+        <strong>Create New</strong>
+    </span>
+</a> 
+    }
+}
+else
+{
 
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        @if (User.IsInRole("applicationAdmin"))
-        {
+    if (User.IsInRole("CinemaAccount"))
+    {
+<a href="@Url.Action("Create", "Movies") " class="btn btn-danger">
+    <i class="icon-pencil icon-white"></i>
+    <span>
+        <strong>Create New</strong>
+    </span>
+</a>
+}
+<table id="movies" class="display">
+    <thead>
+        <tr>
+            @if (User.IsInRole("applicationAdmin"))
+            {
+        <th>
+            @Html.DisplayNameFor(model => model.userName)
+        </th>}
             <th>
-                @Html.DisplayNameFor(model => model.userName)
+                @Html.DisplayNameFor(model => model.MovieGenre)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.releaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.movieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.movieYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.movieSeason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.starring)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.creator)
+            </th>
+            <th>
+                Detail
+            </th>
+            <th>
+                Delete
+            </th>
+            @if (User.IsInRole("CinemaAccount"))
+            {
+                <th>
+                    edit
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
 
-        }
-        <th>
-            @Html.DisplayNameFor(model => model.MovieGenre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.releaseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.movieName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.movieYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.movieSeason)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.starring)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.creator)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
 
-@foreach (var item in Model) {
-    
 <tr>
     @if (User.IsInRole("applicationAdmin"))
     {
-    <td>
-        @Html.DisplayFor(modelItem => item.userName)
-    </td>
-
+<td>
+    @Html.DisplayFor(modelItem => item.userName)
+</td>
     }
     <td>
         @Html.DisplayFor(modelItem => item.MovieGenre)
@@ -76,14 +109,43 @@
         @Html.DisplayFor(modelItem => item.creator)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.movieid }) |
-        @Html.ActionLink("Details", "Details", new { id = item.movieid }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.movieid })
-        
+        @Html.ActionLink("Details", "Details", new { id = item.movieid })
     </td>
-</tr>
+    <td>
+        <button data-movie-id="@item.movieid" class="btn-link js-delete">Delete</button>
+    </td> 
     
-}
+    @if (User.IsInRole("CinemaAccount"))
+    {<td>
+    @Html.ActionLink("Edit", "Edit", new { id = item.movieid })
+    </td>
+    }   
+</tr>
+        }
+    </tbody>
 
 </table>
+}
 
+@section scripts
+{
+
+    <script>
+        $(document).ready(function () {
+            $("#movies").DataTable();
+
+            $("#movies .js-delete").on("click", function () {
+                var button = $(this);
+                if (confirm("Are you sure you want to delete this customer?")) {
+                    $.ajax({
+                        url: "/api/movies/" + button.attr("data-movie-id"),
+                        method: "DELETE",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,87 @@
+﻿@model cima.Model.Movie
+
+@{ ViewBag.Title = "Details";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MovieGenre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovieGenre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.releaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.releaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.movieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movieName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.movieYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movieYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.movieSeason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movieSeason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.starring)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.starring)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creator)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (User.IsInRole("CinemaAccount"))
+    {
+
+<a href="@Url.Action("Edit", "Movies", new {id = Model.movieid }) " class="btn btn-outline-primary">
+    <i class="icon-pencil icon-white"></i>
+    <span>
+        <strong>Edit</strong>
+    </span>
+</a>}
+
+    <a href="@Url.Action("CinemaList", "Movies", new { id = Model.userName}) " class="btn btn-outline-primary">
+        <i class="icon-pencil icon-white"></i>
+        <span>
+            <strong>Back</strong>
+        </span>
+    </a>
+</p>

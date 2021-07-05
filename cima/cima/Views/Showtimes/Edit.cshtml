@@ -19,7 +19,7 @@
         @Html.HiddenFor(model => model.showtimeId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.movieId, "movieId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.movieId, "Movie Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("movieId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.movieId, "", new { @class = "text-danger" })
@@ -64,19 +64,21 @@
                 @Html.EditorFor(model => model.time4, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.time4, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div><br/>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-outline-primary" />
+                <a href="@Url.Action("Index", "Showtimes") " class="btn btn-outline-primary">
+                    <i class="icon-pencil icon-white"></i>
+                    <span>
+                        <strong>Back</strong>
+                    </span>
+                </a>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -48,8 +48,30 @@
 <p>
     @if (User.IsInRole("NormalAccount"))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.feedBackId })
+        <a href="@Url.Action("Edit", "Feedbacks", new { id = Model.feedBackId })" class="btn btn-outline-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>Edit</strong>
+            </span>
+        </a>
     }
-    
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.IsInRole("NormalAccount") || User.IsInRole("CinemaAccount"))
+    {
+        <a href="@Url.Action("Myfeed", "Feedbacks")" class="btn btn-outline-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>Back</strong>
+            </span>
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action("Index", "Feedbacks")" class="btn btn-outline-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>Back</strong>
+            </span>
+        </a>
+    }
+
 </p>

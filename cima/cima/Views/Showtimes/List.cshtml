@@ -1,54 +1,93 @@
 ﻿@model IEnumerable<cima.Model.Showtime>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
 
-@{
-    ViewBag.Title = "Movies Showtime";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+
+@{ ViewBag.Title = "Movies Showtime";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <h2>Movies Showtime</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        @if (User.IsInRole("applicationAdmin"))
-        {
+
+@if (Model.Any() == false)
+{
+<h4>No Showtime to show</h4> 
+if (User.IsInRole("CinemaAccount"))
+{
+<a href="@Url.Action("Create", "Showtimes") " class="btn btn-danger">
+    <i class="icon-pencil icon-white"></i>
+    <span>
+        <strong>Create New</strong>
+    </span>
+</a> 
+}
+
+}
+
+else
+{
+if (User.IsInRole("CinemaAccount"))
+{
+<a href="@Url.Action("Create", "Showtimes") " class="btn btn-danger">
+    <i class="icon-pencil icon-white"></i>
+    <span>
+        <strong>Create New</strong>
+    </span>
+</a> }
+
+<table id="showtimes" class="display">
+    <thead>
+        <tr>
+            @if (User.IsInRole("applicationAdmin"))
+            {
+<th>
+    @Html.DisplayNameFor(model => model.Movie.userName)
+</th>
+}
             <th>
-                @Html.DisplayNameFor(model => model.Movie.userName)
+                @Html.DisplayNameFor(model => model.Movie.movieName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.day)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time4)
+            </th>
+            <th>
+                Details
+            </th>
+            <th>
+                Delete
+            </th>
+            @if (User.IsInRole("CinemaAccount"))
+            {
+<th>
+    Edit
+</th>}
 
-        }
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.movieName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.day)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.time1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.time2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.time3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.time4)
-        </th>
-        <th></th>
-    </tr>
+        </tr>
+    </thead>
+    <tbody>
 
-@foreach (var item in Model) {
-    
+        @foreach (var item in Model)
+        {
+
+
 <tr>
     @if (User.IsInRole("applicationAdmin"))
     {
-        <td>
-            @Html.DisplayFor(modelItem => item.Movie.userName)
-        </td>
-    }
+<td>
+    @Html.DisplayFor(modelItem => item.Movie.userName)
+</td>}
 
     <td>
         @Html.DisplayFor(modelItem => item.Movie.movieName)
@@ -69,12 +108,29 @@
         @Html.DisplayFor(modelItem => item.time4)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.showtimeId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.showtimeId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.showtimeId })
+    </td>
+    <td>
         @Html.ActionLink("Delete", "Delete", new { id = item.showtimeId })
     </td>
-</tr>
-    
+    @if (User.IsInRole("CinemaAccount"))
+    {
+<td>    
+    @Html.ActionLink("Edit", "Edit", new { id = item.showtimeId })
+</td>}
+
+</tr>}
+    </tbody>
+
+</table>}
+
+@section scripts
+{
+
+    <script>
+        $(document).ready(function () {
+            $("#showtimes").DataTable();
+        });
+    </script>
 }
 
-</table>

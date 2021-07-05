@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<cima.Model.FeedBack>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
 
 @{
     ViewBag.Title = "Index";
@@ -14,57 +17,90 @@ else
     <h2>My Feedbacks</h2>
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.movieName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.userName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.comment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.userName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Movie.movieName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Movie.userName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.userName)
-            </td>
-            <td>
+    <table id="feedbacks" class="display">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.movieName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.userName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.comment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.userName)
+                </th>
                 @if (User.IsInRole("NormalAccount"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.feedBackId }) 
+                    <th>
+                        Edit
+                    </th>
                 }
 
                 @if (User.IsInRole("NormalAccount"))
                 {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.feedBackId })
+                    <th>
+                        Delete
+                    </th>
                 }
+                <th>
+                    Details
+                </th>
+            </tr>
+        </thead>
+        <tbody>
 
-                @Html.ActionLink("Details", "Details", new { id = item.feedBackId })
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Movie.movieName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Movie.userName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.comment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.userName)
+                    </td>
+                    @if (User.IsInRole("NormalAccount"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.feedBackId })
+                        </td>
+                    }
 
-            </td>
-        </tr>
-    }
+                    @if (User.IsInRole("NormalAccount"))
+                    {
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.feedBackId })
+                        </td>
+                    }
+                    <td>
 
-</table>
+                        @Html.ActionLink("Details", "Details", new { id = item.feedBackId })
+                    </td>
 
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+}
+
+@section scripts
+{
+
+    <script>
+        $(document).ready(function () {
+            $("#feedbacks").DataTable();
+        });
+    </script>
 }
 
 

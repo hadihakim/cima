@@ -1,65 +1,79 @@
 ﻿@model IEnumerable<cima.Model.Showtime>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
 
-@{
-    ViewBag.Title = "Movies Showtime";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+@{ ViewBag.Title = "Movies Showtime";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <h2>Movies Showtime</h2>
 
-<table class="table">
+<table id="showtimes" class="display">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.userName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.movieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.day)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time4)
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.userName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.movieName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.day)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.time1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.time2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.time3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.time4)
-        </th>
-        <th></th>
-    </tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Movie.userName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Movie.movieName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.day)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time4)
+        </td>
 
-@foreach (var item in Model) {
-   
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Movie.userName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Movie.movieName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.day)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.time1)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.time2)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.time3)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.time4)
-    </td>
-
-</tr>
-    
-}
+    </tr>}
+    </tbody>
 
 </table>
+
+
+@section scripts
+{
+
+    <script>
+        $(document).ready(function () {
+            $("#showtimes").DataTable();
+        });
+    </script>
+}

@@ -41,9 +41,28 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Myfeed")
-        </div>
+<div class="form-actions no-color">
+    <input type="submit" value="Delete" class="btn btn-outline-primary" />
+    @if (User.IsInRole("NormalAccount") || User.IsInRole("CinemaAccount"))
+    {
+        <a href="@Url.Action("Myfeed", "Feedbacks")" class="btn btn-outline-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>Back</strong>
+            </span>
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action("Index", "Feedbacks")" class="btn btn-outline-primary">
+            <i class="icon-pencil icon-white"></i>
+            <span>
+                <strong>Back</strong>
+            </span>
+        </a>
+    }
+
+
+</div>
     }
 </div>

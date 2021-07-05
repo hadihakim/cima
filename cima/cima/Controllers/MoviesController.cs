@@ -19,6 +19,7 @@ namespace cima.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Movies
+        [Authorize]
         public async Task<ActionResult> List()
         {
             var favorite = db.Favorites.Where(x => x.userName == User.Identity.Name);
@@ -70,8 +71,17 @@ namespace cima.Controllers
             }
             // string s = str.Trim().ToLower();
             movi = movi.Where(x => x.userName == id);
+            if (User.IsInRole("NormalAccount"))
+            {
+                return View("CinemaList", await movi.ToListAsync());
+            }
+            else
+                return View("CinemaListData", await movi.ToListAsync());
+                
 
-            return View("CinemaList", await movi.ToListAsync());
+           
+
+
 
             /*if (User.IsInRole(RoleName.CinemaAccount))
 
@@ -92,6 +102,26 @@ namespace cima.Controllers
 
 
 
+        // GET: Movies/Details/5
+        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
+        public async Task<ActionResult> Detailsc(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Movie movie = await db.Movies.FindAsync(id);
+            /*if (movie.userName != User.Identity.Name && movie.userName != "admin@gmail.com")
+            {
+                return HttpNotFound();
+            }*/
+            if (movie == null)
+            {
+
+                return HttpNotFound();
+            }
+            return View(movie);
+        }
 
 
 
@@ -105,6 +135,10 @@ namespace cima.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Movie movie = await db.Movies.FindAsync(id);
+            /*if (movie.userName != User.Identity.Name && movie.userName != "admin@gmail.com")
+            {
+                return HttpNotFound();
+            }*/
             if (movie == null)
             {
 
@@ -114,9 +148,10 @@ namespace cima.Controllers
         }
 
         // GET: Movies/Create
-        [Authorize(Roles = RoleName.applicationAdmin+","+RoleName.CinemaAccount)]
+        [Authorize(Roles = RoleName.CinemaAccount)]
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -125,7 +160,7 @@ namespace cima.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
+        [Authorize(Roles = RoleName.CinemaAccount)]
         public async Task<ActionResult> Create([Bind(Include = "movieid,MovieGenre,releaseDate,movieName,movieYear,movieSeason,starring,creator")] Movie movie)
         {
             if (ModelState.IsValid)
@@ -206,9 +241,6 @@ namespace cima.Controllers
         }
 
 
-
-
-
         [Authorize(Roles = RoleName.applicationAdmin)]
         public async Task<ActionResult> Unfavorites(int id)
         {
@@ -232,20 +264,21 @@ namespace cima.Controllers
 
 
 
-
-
-
-
-
         // GET: Movies/Edit/5
-        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
+        [Authorize(Roles = RoleName.CinemaAccount)]
         public async Task<ActionResult> Edit(int? id)
         {
+           
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Movie movie = await db.Movies.FindAsync(id);
+
+            if (movie.userName != User.Identity.Name)
+            {
+                return HttpNotFound();
+            }
             if (movie == null)
             {
                 return HttpNotFound();
@@ -258,11 +291,12 @@ namespace cima.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = RoleName.applicationAdmin + "," + RoleName.CinemaAccount)]
+        [Authorize(Roles = RoleName.CinemaAccount)]
         public async Task<ActionResult> Edit([Bind(Include = "movieid,MovieGenre,releaseDate,movieName,movieYear,movieSeason,starring,creator")] Movie movie)
         {
             if (ModelState.IsValid)
             {
+                movie.userName = User.Identity.Name;
                 db.Entry(movie).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("List");
@@ -279,6 +313,11 @@ namespace cima.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Movie movie = await db.Movies.FindAsync(id);
+
+            if (movie.userName != User.Identity.Name && movie.userName != "admin@gmail.com")
+            {
+                return HttpNotFound();
+            }
             if (movie == null)
             {
                 return HttpNotFound();
@@ -294,6 +333,10 @@ namespace cima.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Movie movie = await db.Movies.FindAsync(id);
+            if (movie.userName != User.Identity.Name && movie.userName != "admin@gmail.com")
+            {
+                return HttpNotFound();
+            }
             db.Movies.Remove(movie);
             await db.SaveChangesAsync();
             return RedirectToAction("List");
