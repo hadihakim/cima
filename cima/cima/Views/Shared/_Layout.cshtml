@@ -14,6 +14,7 @@
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
  </button>
+ <div class="headimg"></div>
  <a class="navbar-brand" href="/">Cima</a>
  <div class="navbar-collapse collapse" id="navbarSupportedContent">
      <ul class="nav navbar-nav mr-auto">
@@ -55,3 +56,18 @@ aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle 
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<style>
+    .headimg {
+        background-image: url(../../Images/head_img.png);
+        background-position: center;
+        background-size: cover;
+        object-fit: cover;
+        background-repeat: no-repeat;
+        width: 7vw;
+        height: 7vh;
+        background-color: transparent;
+    }
+
+    
+</style>

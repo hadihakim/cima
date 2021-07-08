@@ -2,16 +2,97 @@
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h3></h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="contactcontainer">
+    <div>
+        <div class="mainheader"></div>
+        <div class="maincontact">
+           
+                <h4>Address</h4>
+                <address>
+                    Ghobeiry Beirut, Lebanon<br /> Old Airport Road
+                </address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+            <address>
+                <strong>Map:</strong>  <a href="https://earth.google.com/web/search/gobeiry+lebanon/33.85871996,35.5023209,37.70601273a,594.83751222d,35y,-124.14863296h,44.97526683t,-0r/data=CoIBGlgSUgolMHgxNTFmMTc2MGQ3YzZmMzMzOjB4ZjdjMjljMDg5ODY5MmZmOSopVVNBTCAtIFVuaXZlcnNpdHkKT2YgU2NpZW5jZXMgQW5kIEFydHPigKYYAiABIiYKJAmGVQqVvoQ0QBGDVQqVvoQ0wBkWc5DTrZgzQCHy8H5bSaVUwA" target="_blank">Our location</a><br />
+
+            </address>
+        </div>
+    </div>
+
+    <div>
+        <div class="mainheader" style="background-color:lightgreen"></div>
+        <div class="maincontact">
+            
+                <h4 class="titlecont">Help & Support</h4>
+                <address>
+                    You can support us through
+                </address>
+           
+
+            <address>
+                <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+                <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+            </address>
+        </div>
+    </div>
+
+    <div>
+        <div class="mainheader" style="background-color:orange"></div>
+        <div class="maincontact">
+            
+                <h4>Info</h4>
+
+                <address>
+                    For more info<br />
+                    please contact us through
+                </address>
+  
+            <address>
+                <strong>Email:</strong>   <a href="mailto:info@example.com">Info@example.com</a><br />
+            </address>
+        </div>
+    </div>
+
+</div>
+
+
+<style>
+    .maincontact {
+        width: auto;
+        height: 35vh;
+        width: 25vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 1px 2px 2px #888888;
+    }
+
+
+    .mainheader{
+        margin-bottom:0;
+        border-radius: 50% 50% 0% 0%;
+        width: 25vw;
+        height: 2vh;
+        background-color: royalblue;
+    }
+
+    a{
+        color: royalblue;
+    }
+    .titlecont{
+        margin-top: 0;
+    }
+    .contactcontainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-top: 10vh;
+    }
+
+    h2 {
+        color: #55595c;
+    }
+</style>
