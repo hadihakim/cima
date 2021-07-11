@@ -22,30 +22,74 @@ namespace cima.Controllers
         [Authorize]
         public async Task<ActionResult> List()
         {
-            var favorite = db.Favorites.Where(x => x.userName == User.Identity.Name);
+            var favorite = db.Favorites.Where(x => x.userName == User.Identity.Name).ToList();
 
-            var movi = db.Movies.Where(x => x.movieid > 0);
+            
+            List<FavoriteMovieViewModel> listfm = new List<FavoriteMovieViewModel>();
 
-            if (User.IsInRole(RoleName.CinemaAccount))
+            //var test = db.Favorites.Where(x => x.userName == User.Identity.Name).ToList();
+            //var tmov = db.Movies.Where(x => x.movieid != -5);
 
+            var lmov = db.Movies.Where(x => x.movieid > 0);
+
+
+            foreach (Favorite item in favorite)
             {
-                // User.Identity.GetUserId(); --> get the current user id
-                var movie = db.Movies.Where(x => x.userName == User.Identity.Name);
-
-                return View("List", await movie.ToListAsync());
-
+                lmov = lmov.Where(x => x.movieid != item.movieId);
             }
-            else if (User.IsInRole(RoleName.applicationAdmin))
+
+
+            foreach (Movie item in lmov)
             {
-                return View("List", await db.Movies.ToListAsync());
+
+                var fb = new FavoriteMovieViewModel();
+                fb.Movie = item;
+                fb.isfav = false;
+
+                listfm.Add(fb);
             }
-            else
-                foreach (Favorite fav in favorite) {
-                    movi = movi.Where(x => x.movieid != fav.movieId);
 
-                }
+            foreach (Favorite item in favorite)
+            {
+                /*var llmov = db.Movies.Where(x => x.movieid > 0);
+                llmov = llmov.Where(x => x.movieid == item.movieId);*/
 
-            return View("ReadOnlyList", await movi.ToListAsync());
+                Movie llmov = db.Movies.Find(item.movieId);
+
+                var fb = new FavoriteMovieViewModel();
+                fb.Movie = llmov;
+                fb.isfav = true;
+
+                listfm.Add(fb);
+            }
+
+            //((IEnumerable<Favorite>)ViewBag.favorite).Where(x => x.userName == User.Identity.Name);
+             var movi = db.Movies.Where(x => x.movieid > 0);
+
+
+             if (User.IsInRole(RoleName.CinemaAccount))
+
+             {
+                 // User.Identity.GetUserId(); --> get the current user id
+                 var movie = db.Movies.Where(x => x.userName == User.Identity.Name);
+
+                 return View("List", await movie.ToListAsync());
+
+             }
+             else if (User.IsInRole(RoleName.applicationAdmin))
+             {
+                 return View("List", await db.Movies.ToListAsync());
+             }
+             else
+                 foreach (Favorite fav in favorite) {
+                    // movi = movi.Where(x => x.movieid != fav.movieId);
+
+                 }
+            List<FavoriteMovieViewModel> orderByResult = (from s in listfm
+                                orderby  s.Movie.movieid descending
+                                select s).ToList();
+            //return View("ReadOnlyList", await movi.ToListAsync());
+            return View("ReadOnlyList", orderByResult);
 
         }
 
@@ -71,9 +115,55 @@ namespace cima.Controllers
             }
             // string s = str.Trim().ToLower();
             movi = movi.Where(x => x.userName == id);
+
+
+            var favoritee = db.Favorites.Where(x => x.userName == User.Identity.Name).Where(x => x.Movie.userName == id).ToList();
+
+            List<FavoriteMovieViewModel> listfm = new List<FavoriteMovieViewModel>();
+
+            //var test = db.Favorites.Where(x => x.userName == User.Identity.Name).ToList();
+            //var tmov = db.Movies.Where(x => x.movieid != -5);
+
+            var lmov = db.Movies.Where(x => x.userName == id);
+
+
+            foreach (Favorite item in favoritee)
+            {
+                lmov = lmov.Where(x => x.movieid != item.movieId);
+            }
+
+
+            foreach (Movie item in lmov)
+            {
+
+                var fb = new FavoriteMovieViewModel();
+                fb.Movie = item;
+                fb.isfav = false;
+
+                listfm.Add(fb);
+            }
+
+            foreach (Favorite item in favoritee)
+            {
+                /*var llmov = db.Movies.Where(x => x.movieid > 0);
+                llmov = llmov.Where(x => x.movieid == item.movieId);*/
+
+                Movie llmov = db.Movies.Find(item.movieId);
+
+                var fb = new FavoriteMovieViewModel();
+                fb.Movie = llmov;
+                fb.isfav = true;
+
+                listfm.Add(fb);
+            }
+
+            List<FavoriteMovieViewModel> orderByResult = (from s in listfm
+                                                          orderby s.Movie.movieid descending
+                                                          select s).ToList();
+
             if (User.IsInRole("NormalAccount"))
             {
-                return View("CinemaList", await movi.ToListAsync());
+                return View("CinemaList", orderByResult);
             }
             else
                 return View("CinemaListData", await movi.ToListAsync());
@@ -212,6 +302,7 @@ namespace cima.Controllers
 
 
 
+
         [Authorize(Roles = RoleName.NormalAccount)]
         public async Task<ActionResult> Favcinlist(int id) 
         {
@@ -241,8 +332,55 @@ namespace cima.Controllers
         }
 
 
+        [Authorize(Roles = RoleName.NormalAccount)]
+        public async Task<ActionResult> Unfavcinlist(int id)
+        {
+            var movi = db.Movies.Find(id);
+            string ss = movi.userName;
+
+
+            try
+            {
+
+                Favorite fav = await db.Favorites.FindAsync(User.Identity.Name, id);
+                db.Favorites.Remove(fav);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("CinemaList", new {id = ss });
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("CinemaList", new { id = ss});
+            }
+
+        }
+
+
         [Authorize(Roles = RoleName.applicationAdmin)]
         public async Task<ActionResult> Unfavorites(int id)
+        {
+
+            try
+            {
+
+                Favorite fav = await db.Favorites.FindAsync(User.Identity.Name, id);
+                db.Favorites.Remove(fav);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("List");
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("List");
+            }
+
+        }
+
+
+        [Authorize(Roles = RoleName.NormalAccount)]
+        public async Task<ActionResult> Unfavoritesm(int id)
         {
 
             try

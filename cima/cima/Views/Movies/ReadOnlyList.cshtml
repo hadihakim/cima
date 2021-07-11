@@ -1,4 +1,4 @@
-﻿@model IEnumerable<cima.Model.Movie>
+﻿@model IEnumerable<cima.Model.FavoriteMovieViewModel>
     <link rel="stylesheet" type="text/css" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 
 @{
@@ -20,30 +20,29 @@ else
 <table id="movies" class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.userName)
+            @Html.DisplayNameFor(model => model.Movie.userName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MovieGenre)
+            @Html.DisplayNameFor(model => model.Movie.MovieGenre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.releaseDate)
+            @Html.DisplayNameFor(model => model.Movie.releaseDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.movieName)
+            @Html.DisplayNameFor(model => model.Movie.movieName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.movieYear)
+            @Html.DisplayNameFor(model => model.Movie.movieYear)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.movieSeason)
+            @Html.DisplayNameFor(model => model.Movie.movieSeason)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.starring)
+            @Html.DisplayNameFor(model => model.Movie.starring)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.creator)
+            @Html.DisplayNameFor(model => model.Movie.creator)
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model)
@@ -51,40 +50,54 @@ else
 
 <tr>
     <td>
-        @Html.DisplayFor(modelItem => item.userName)
+        @Html.DisplayFor(modelItem => item.Movie.userName)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.MovieGenre)
+        @Html.DisplayFor(modelItem => item.Movie.MovieGenre)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.releaseDate)
+        @Html.DisplayFor(modelItem => item.Movie.releaseDate)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.movieName)
+        @Html.DisplayFor(modelItem => item.Movie.movieName)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.movieYear)
+        @Html.DisplayFor(modelItem => item.Movie.movieYear)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.movieSeason)
+        @Html.DisplayFor(modelItem => item.Movie.movieSeason)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.starring)
+        @Html.DisplayFor(modelItem => item.Movie.starring)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.creator)
+        @Html.DisplayFor(modelItem => item.Movie.creator)
     </td>
+
+    
     <td>
 
-        <a href="@Url.Action("Favorites", "Movies", new { id = item.movieid }) " class="favlink">
-            <i class="fav far fa-star"></i>
+        @if (item.isfav)
+        {
+         <a href="@Url.Action("Unfavoritesm", "Movies", new { id = item.Movie.movieid }) " class="favlink">
 
+                  <i class="ful fas fa-star"></i>
         </a>
+        }
+        else { 
+            <a href="@Url.Action("Favorites", "Movies", new { id = item.Movie.movieid }) " class="favlink">
+
+                <i class="emp far fa-star"></i>
+
+            </a>
+        }
+
     </td>
+
     <td>
-        <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.movieid }) " class="">
+        <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.Movie.movieid }) " class="">
             <i class="com far fa-comment-lines"></i>
-            
+
         </a>
     </td>
 
@@ -97,6 +110,7 @@ else
 
 </table>
         </body>
+}
 
 
 @section scripts
@@ -104,21 +118,45 @@ else
     <script>
         $(document).ready(function () {
             $("#movies").DataTable();
+
+            
         });
 
-        $(".favlink").on("click", function () {
+        /*$(function () {
+            if () {
+                $(".fav").toggleClass('fav far fa-star').toggleClass('fav fas fa-star');
+            }
+            else
+                $(this).find($(".fav")).toggleClass('fav fas fa-star').toggleClass('fav far fa-star');
+        });*/
+
+        /*$(".favlink").on("click", function () {
             $(this).find($(".fav")).toggleClass('fav far fa-star').toggleClass('fav fas fa-star');
+        });*/
 
+        /*$(".favlink").on("click", function () {
+          if (true) {
+                $(this).find($(".fav")).toggleClass('fav far fa-star').toggleClass('fav fas fa-star');
+                    }
+                    else
+                $(this).find($(".fav")).toggleClass('fav fas fa-star').toggleClass('fav far fa-star');
+                
+        });*/
 
-        });
     </script>
 }
 
     <style>
-        .fav {
+        .emp {
             font-size: 40px;
             color: gold;
             opacity: 0.7;
+        }
+
+        .ful {
+            font-size: 40px;
+            color: gold;
+            opacity: 1;
         }
 
         .com {  
@@ -127,15 +165,19 @@ else
             opacity: 0.7;
         }
 
-        i:hover {
+        .emp:hover {
             opacity: 1;
+        }
+
+        .ful:hover {
+            opacity: 0.7;
         }
 
         
     </style>
 
    
-}
+
 
 
 

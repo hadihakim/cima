@@ -1,142 +1,111 @@
-﻿@model IEnumerable<cima.Model.Movie>
-     <link rel="stylesheet" type="text/css" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+﻿@model IEnumerable<cima.Model.FavoriteMovieViewModel>
+<link rel="stylesheet" type="text/css" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 
 @{ ViewBag.Title = "Movies List";
-    Layout = "~/Views/Shared/_Layout.cshtml"; }
-
-
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
 @if (Model.Any() == false)
-{
-    if (User.IsInRole("NormalAccont"))
-    {
+{<body>
+
         <h2>No Movies to favorite</h2>
-    }
-
-    else
-    { 
-        <h2>No Movies to show</h2>
-    }
-
+    </body>
 
 }
 else
 {
-    if (User.IsInRole("NormalAccount"))
-    {
-        <h2>Choose your favorite movies</h2>
-    }
-    else
-    { 
-        <h2>Movies List</h2>
-    }
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.userName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.MovieGenre)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.releaseDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.movieName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.movieYear)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.movieSeason)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.starring)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.creator)
-                        </th>
-                        <th></th>
-                    </tr>
+    <body>
+        <h2>Movies to favorite</h2>
 
-  @foreach (var item in Model)
-  {
+        <table id="movies" class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.userName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.MovieGenre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.releaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.movieName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.movieYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.movieSeason)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.starring)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.creator)
+                </th>
+            </tr>
 
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.userName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MovieGenre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.releaseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.movieName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.movieYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.movieSeason)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.starring)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.creator)
-        </td>
-        
-            @if (User.IsInRole("NormalAccount"))
+            @foreach (var item in Model)
             {
-                <td>
-                <a href="@Url.Action("Favcinlist", "Movies", new { id = item.movieid }) " class="favlink">
-                    <i class="fav fas fa-star"></i>
-                </a> 
-                </td>
 
-                <td>
-                 <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.movieid }) " class="">
-                 <i class="com far fa-comment-lines"></i>
-                 </a>
-                </td>
-
-            }   
-            <td>
-            @if ((User.IsInRole("CinemaAccount") || User.IsInRole("applicationAdmin")) && item.userName == User.Identity.Name)
-            { 
-                <a href="@Url.Action("Details", "Movies", new { id = item.movieid }) " class="btn btn-primary mybutton">
-                    <i class="icon-pencil icon-white"></i>
-                    <span>
-                        <strong>Details</strong>
-                    </span>
-                </a><br />
-
-                <a href="@Url.Action("Delete", "Movies", new { id = item.movieid }) " class="btn btn-primary mybutton">
-                    <i class="icon-pencil icon-white"></i>
-                    <span>
-                        <strong>Delete</strong>
-                    </span>
-                </a><br />
-             if (User.IsInRole("CinemaAccount"))
-             {
-                <a href="@Url.Action("Edit", "Movies", new { id = item.movieid }) " class="btn btn-primary mybutton">
-                    <i class="icon-pencil icon-white"></i>
-                    <span>
-                        <strong>Edit</strong>
-                    </span>
-                </a>
-             }
-
-            }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.userName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.MovieGenre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.releaseDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.movieName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.movieYear)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.movieSeason)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.starring)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Movie.creator)
+    </td>
 
 
-        </td>
+    <td>
 
-    </tr>}
+        @if (item.isfav)
+        {
+            <a href="@Url.Action("Unfavcinlist", "Movies", new { id = item.Movie.movieid }) " class="favlink">
 
- </table>
+                <i class="ful fas fa-star"></i>
+            </a>
+        }
+        else
+        {
+<a href="@Url.Action("Favcinlist", "Movies", new { id = item.Movie.movieid }) " class="favlink">
 
+    <i class="emp far fa-star"></i>
+
+</a>}
+
+    </td>
+
+    <td>
+        <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.Movie.movieid }) " class="">
+            <i class="com far fa-comment-lines"></i>
+
+        </a>
+    </td>
+
+
+
+
+</tr>}
+
+        </table>
+    </body>}
 
 
 @section scripts
@@ -144,28 +113,65 @@ else
     <script>
         $(document).ready(function () {
             $("#movies").DataTable();
+
+
         });
+
+        /*$(function () {
+            if () {
+                $(".fav").toggleClass('fav far fa-star').toggleClass('fav fas fa-star');
+            }
+            else
+                $(this).find($(".fav")).toggleClass('fav fas fa-star').toggleClass('fav far fa-star');
+        });*/
+
+        /*$(".favlink").on("click", function () {
+            $(this).find($(".fav")).toggleClass('fav far fa-star').toggleClass('fav fas fa-star');
+        });*/
+
+        /*$(".favlink").on("click", function () {
+          if (true) {
+                $(this).find($(".fav")).toggleClass('fav far fa-star').toggleClass('fav fas fa-star');
+                    }
+                    else
+                $(this).find($(".fav")).toggleClass('fav fas fa-star').toggleClass('fav far fa-star');
+
+        });*/
+
     </script>
 }
 
-    <style>
-        .fav {
-            font-size: 55px;
-            color: gold;
-            opacity: 0.7;
-        }
+<style>
+    .emp {
+        font-size: 40px;
+        color: gold;
+        opacity: 0.7;
+    }
 
-        .com {
-            font-size: 55px;
-            color: blue;
-            opacity: 0.7;
-        }
+    .ful {
+        font-size: 40px;
+        color: gold;
+        opacity: 1;
+    }
 
-        i:hover {
-            opacity: 1;
-        }
+    .com {
+        font-size: 40px;
+        color: blue;
+        opacity: 0.7;
+    }
 
-        
-    </style>
-   
-}
+    .emp:hover {
+        opacity: 1;
+    }
+
+    .ful:hover {
+        opacity: 0.7;
+    }
+</style>
+
+
+
+
+
+
+
