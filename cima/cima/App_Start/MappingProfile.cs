@@ -14,6 +14,9 @@ namespace cima.App_Start
         {
             Mapper.CreateMap<Movie, MovieDto>();
             Mapper.CreateMap<MovieDto, Movie>();
+
+            Mapper.CreateMap<Favorite, FavoriteDto>();
+            Mapper.CreateMap<FavoriteDto, Favorite>();
         }
     }
 }

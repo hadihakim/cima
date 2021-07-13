@@ -1,52 +1,62 @@
 ﻿@model IEnumerable<cima.Model.FavoriteMovieViewModel>
-    <link rel="stylesheet" type="text/css" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<link rel="stylesheet" type="text/css" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 
-@{
-    ViewBag.Title = "Movies List";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+
+
+@{ ViewBag.Title = "Movies List";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 @if (Model.Any() == false)
 {<body>
 
-    <h2>No Movies to favorite</h2>
-</body>
-
-}
+        <h2>No Movies to favorite</h2>
+    </body> }
 else
 {
-    <body>
+<body>
     <h2>Movies to favorite</h2>
 
-<table id="movies" class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.userName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.MovieGenre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.releaseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.movieName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.movieYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.movieSeason)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.starring)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Movie.creator)
-        </th>
-    </tr>
+    <table id="movies" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.userName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.MovieGenre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.releaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.movieName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.movieYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.movieSeason)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.starring)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.creator)
+                </th>
+                <th>
+                    Favotire
+                </th>
+                <th>
+                    Feedback
+                </th>
+            </tr>
+        </thead>
+        <tbody>
 
-@foreach (var item in Model)
-{
+            @foreach (var item in Model)
+            {
 
 <tr>
     <td>
@@ -74,23 +84,23 @@ else
         @Html.DisplayFor(modelItem => item.Movie.creator)
     </td>
 
-    
+
     <td>
 
         @if (item.isfav)
         {
-         <a href="@Url.Action("Unfavoritesm", "Movies", new { id = item.Movie.movieid }) " class="favlink">
+        <button data-movie-id="@item.Movie.movieid" class="js-delete">
 
-                  <i class="ful fas fa-star"></i>
-        </a>
-        }
-        else { 
-            <a href="@Url.Action("Favorites", "Movies", new { id = item.Movie.movieid }) " class="favlink">
+            <i class="ful fas fa-star"></i>
+            
+        </button> }
+else
+{
+    <button data-movie-id="@item.Movie.movieid" class="js-delete">
 
-                <i class="emp far fa-star"></i>
+        <i class="emp far fa-star"></i>
 
-            </a>
-        }
+    </button>}
 
     </td>
 
@@ -104,13 +114,11 @@ else
 
 
 
-</tr>
+</tr>}
+        </tbody>
 
-}
-
-</table>
-        </body>
-}
+    </table>
+</body>}
 
 
 @section scripts
@@ -119,7 +127,44 @@ else
         $(document).ready(function () {
             $("#movies").DataTable();
 
-            
+            $("#movies .js-delete").on("click", function () {
+                var link = $(this);
+                if (link.find("i").hasClass("ful")) {
+                    $.ajax({
+                        url: "/api/favorites/" + link.attr("data-movie-id"),
+                        method: "DELETE",
+                        success: function () {
+
+                            link.find("i").toggleClass('ful fas fa-star').toggleClass('emp far fa-star');
+
+                        }
+
+                    });
+                }
+                else if (link.find("i").hasClass("emp")) {
+                    //confirm("dsds !");
+                    $.ajax({
+                        url: "/api/favorites/" + link.attr("data-movie-id"),
+                        method: "POST",
+                        success: function () {
+                            link.find("i").toggleClass('emp far fa-star').toggleClass('ful fas fa-star');
+                            //link.find("i").removeClass("emp far fa-star");
+                            //link.find("i").addClass("ful fas fa-star");
+                            /* link.find("i").toggleClass('emp far fa-star').toggleClass('ful fas fa-star');*/
+
+                        }
+                    });
+                }
+
+                    //});
+
+                //}
+                
+                    
+ 
+            });
+
+
         });
 
         /*$(function () {
@@ -140,43 +185,46 @@ else
                     }
                     else
                 $(this).find($(".fav")).toggleClass('fav fas fa-star').toggleClass('fav far fa-star');
-                
+
         });*/
 
     </script>
 }
 
-    <style>
-        .emp {
-            font-size: 40px;
-            color: gold;
-            opacity: 0.7;
-        }
+<style>
+    .emp {
+        font-size: 40px;
+        color: gold;
+        opacity: 0.7;
+    }
 
-        .ful {
-            font-size: 40px;
-            color: gold;
-            opacity: 1;
-        }
+    .ful {
+        font-size: 40px;
+        color: gold;
+        opacity: 1;
+    }
 
-        .com {  
-            font-size: 40px;
-            color: blue;
-            opacity: 0.7;
-        }
+    .com {
+        font-size: 40px;
+        color: blue;
+        opacity: 0.7;
+    }
 
-        .emp:hover {
-            opacity: 1;
-        }
+    .emp:hover {
+        opacity: 1;
+    }
 
-        .ful:hover {
-            opacity: 0.7;
-        }
+    .ful:hover {
+        opacity: 0.7;
+    }
 
-        
-    </style>
+    button{
+        background-color: transparent;
+        border: none;
+    }
+</style>
 
-   
+
 
 
 

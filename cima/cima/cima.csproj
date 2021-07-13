@@ -237,6 +237,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\FavoritesController.cs" />
     <Compile Include="Controllers\Api\MoviesController.cs" />
     <Compile Include="Controllers\FavoritesController.cs" />
     <Compile Include="Controllers\FeedBacksController.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\MoviesFeedBacksViewModelController.cs" />
     <Compile Include="Controllers\ShowtimesController.cs" />
+    <Compile Include="Dtos\FavoriteDto.cs" />
     <Compile Include="Dtos\MovieDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

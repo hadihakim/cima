@@ -14,7 +14,9 @@
 }
 else
 {
-<table class="table">
+    <hr/>
+    <h3 class="hiddenh2"></h3>
+<table id="movies" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Movie.movieName)
@@ -37,9 +39,11 @@ else
     </td>
 
     <td class="tdf">
-        <a href="@Url.Action("Unfavorites", "Favorites", new { id = item.Movie.movieid }) " class="favlink">
+        <button data-movie-id="@item.Movie.movieid" class="js-delete">
+
             <i class="fav fas fa-star"></i>
-        </a>
+
+        </button>
     </td>
     <td class="tdf">
         <a href="@Url.Action("New", "MoviesFeedBacksViewModel", new { id = item.Movie.movieid }) " class="">
@@ -78,6 +82,11 @@ else
     .tdf{
         width:55px;
     }
+
+    button {
+        background-color: transparent;
+        border: none;
+    }
 </style>
 
 
@@ -88,9 +97,28 @@ else
 {
     <script>
 
-        $(".favlink").on("click", function () {
-            $(this).find($(".fav")).toggleClass('fav fas fa-star').toggleClass('fav far fa-star');
+        $(document).ready(function () {
+            //$("#movies").DataTable();
 
+            $("#movies .js-delete").on("click", function () {
+                var link = $(this);
+                    $.ajax({
+                        url: "/api/favorites/" + link.attr("data-movie-id"),
+                        method: "DELETE",
+                        success: function () {
+                            link.parents("tr").remove();
+                            var rows = $('#movies tr').length;
+                            if (rows == 1) {
+                                $("#movies").hide();
+                                $(".hiddenh2").text('You do not have favorite movies')
+                                
+
+                            }
+
+                            
+                        }
+                    });
+            });
         });
     </script>
 }
