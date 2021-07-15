@@ -28,8 +28,8 @@ aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle 
 
          @if (User.IsInRole("applicationAdmin") || User.IsInRole("CinemaAccount"))
          {
- <li class="nav-item"><a href="/Movies/List" class="nav-link">Upcoming Movies</a></li>
-                 <li class="nav-item"><a href="/Showtimes/Index" class="nav-link">Current Movies</a></li>
+ <li class="nav-item"><a href="/Movies/List" class="nav-link">Movies</a></li>
+                 <li class="nav-item"><a href="/Showtimes/Index" class="nav-link">Showtime</a></li>
  }
              else
              {
