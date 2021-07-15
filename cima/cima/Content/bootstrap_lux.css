@@ -3610,7 +3610,7 @@ fieldset:disabled .btn {
   color: #1a1a1a;
   text-decoration: underline;
   border: none;
-  background-color: red;
+  background-color: transparent;
 }
 
 
